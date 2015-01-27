@@ -1,0 +1,144 @@
+<template name="editProfile">
+	<div id="editProfile">
+
+		
+		<div clas="blue ui segment">
+			{{#if profileUpdated}}
+			<div class="header">
+				<i class="check icon"></i>
+				Dein profil wurde aktualiert
+			</div>
+			{{/if}}
+		</div>
+		
+
+		<div class="ui form">
+		  <h4 class="ui dividing header">Personal Information</h4>
+
+		  <div class="three fields">
+
+		  	<div class="four wide field">
+		  		<img id="imagePreview" class="image" src="{{#if isUploaded}}{{#each image}}{{this.url}}{{/each}}{{else}}{{currentUser.profile.avatar}}{{/if}}" style="width:200px; height:200px">
+		  		{{#if imageUpdated}}<div><i class="check icon"></i>Aktualisiert!</div>{{/if}}
+		  		<div class="ui action input">
+				  <input type="file" id="profileUpload">
+				  <div class="ui teal right labeled {{#if isUploaded}}{{else}}disabled{{/if}} icon button imageUpload">
+				    <i class="upload green icon"></i>
+				    upload
+				  </div>
+				</div>				
+		  	</div>
+
+		  	<div class="twelve wide field">
+		  		<div class="field">			      
+			      <div class="three fields">
+			        <div class="field">
+			        	<label>Vorname</label>
+			          <input type="text" id="firstName" placeholder="Vorname" value="{{currentUser.profile.firstName}}">
+			        </div>
+			        <div class="field">
+			        	<label>Nachname</label>
+			          <input type="text" id="lastName" placeholder="Nachname" value="{{currentUser.profile.lastName}}">
+			        </div>
+			        <div class="field">
+			        	<label>Orginisation</label>
+			        	<input type="text" id="organization" placeholder="Organization" value="{{currentUser.profile.organization}}">
+			        </div>
+			      </div>
+			    </div>
+			    <div class="field">	
+				    		<div class="three fields">
+
+					    		<div class="field">
+							      <label>Gender</label>
+							      <div class="ui selection dropdown">
+							        <input type="hidden" id="gender" value="{{currentUser.profile.gender}}">
+							        <div class="default text">
+							        	{{#if currentUser.profile.gender}}
+							        		{{currentUser.profile.gender}}
+							        	{{else}}
+							        		Gender
+							        	{{/if}}
+							        </div>
+							        <i class="dropdown icon"></i>
+							        <div class="menu">
+							          <div class="item" data-value="Male">Male</div>
+							          <div class="item" data-value="Female">Female</div>
+							        </div>
+							      </div>
+							  	</div>
+
+								<div class="field">
+									<label>Location</label>
+									<div class="ui search selection dropdown">
+										<input type="hidden" id="location" value="{{currentUser.profile.location}}" >
+										<div class="default text">
+											{{#if currentUser.profile.location}}
+							        			{{currentUser.profile.location}}
+							        		{{else}}
+							        			City
+							        		{{/if}}
+										</div>
+										<i class="dropdown icon"></i>
+										<div class="menu">
+											{{#each locations}}
+												<div class="item" data-value="{{name}}">{{name}}</div>
+											{{/each}}
+										</div>
+									</div>
+								</div>
+
+							  	<div class="field">
+								  	<label>Birthday</label>
+								  	<input type="date" id="birthday" value="{{#if currentUser.profile.birthday}}{{formatTime currentUser.profile.birthday 'input'}}{{else}}1995-01-01{{/if}}">								  	
+								</div>
+
+							</div>
+				  </div>
+		  	</div>
+		  
+
+		  </div>
+
+		  <div class="two fields">
+
+			  <div class="field">
+			    <label>Biography</label>
+			    <textarea id="bio" value="{{currentUser.profile.bio}}"></textarea>
+			  </div>
+
+			  <div class="field">
+			  	<label>Tags (mit komma trennen)</label>
+			  	<div class="field">
+			  		<label>Music</label>
+			  		<input type="text" id="music" class="tag" value="{{#each currentUser.profile.tags.music}}{{this}}, {{/each}}">
+			  	</div>
+			  	<div class="field">
+			  		<label>Hobbies</label>
+			  		<input type="text" id="hobbies" class="tag" value="{{#each currentUser.profile.tags.hobbies}}{{this}}, {{/each}}">
+			  	</div>
+			  	<div class="field">
+			  		<label>Talents</label>
+			  		<input type="text" id="talents" class="tag" value="{{#each currentUser.profile.tags.talents}}{{this}}, {{/each}}">
+			  	</div>
+			  </div>
+
+
+			</div>
+
+
+		  
+		</div>
+
+	</div>
+
+</template>
+
+
+<template name="depr">
+
+{{#if imageSubscriptionReady}}
+		  		
+				{{/if}}
+
+</template>

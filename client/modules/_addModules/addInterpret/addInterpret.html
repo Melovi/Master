@@ -1,0 +1,52 @@
+<template name="addInterpret">
+	{{#autoForm collection="Interprets" id="insertInterpretForm" type="insert"}}
+		<div class="ui warning form segment">
+			<div class="field">
+				<label>Name</label>
+				{{> afFieldInput name="name" id="name" placeholder="Künstlername"}}		
+				
+			</div>
+			<div class="field ">
+				<label>Bio</label>
+				{{> afFieldInput name="bio" id="bio" rows=6 placeholder="Sag etwas über dich/euch"}}						
+			</div>
+			<div class="two fields">
+
+				<div class="field">
+			      <label>Location</label>
+			      <div class="ui search selection dropdown">
+			        <input type="hidden" id="location">
+			        <div class="default text">Location</div>
+			        <i class="dropdown icon"></i>
+			        <div class="menu">
+			        	{{#each locationOptions}}			        	
+			          		<div class="item" data-value="{{value}}">{{label}}</div>			          		
+		          		{{/each}}	          
+			        </div>
+			      </div>
+			  	</div>				
+
+				<div class="field">
+			      <label>Genre</label>
+			      <div class="ui search selection dropdown">
+			        <input type="hidden" id="genre">
+			        <div class="default text">Genre</div>
+			        <i class="dropdown icon"></i>
+			        <div class="menu">
+			        	{{#each genreOptions}}
+			        	<div class="header">{{optgroup}}</div>
+			        		{{#each options}}
+			          		<div class="item" data-value="{{value}}">{{label}}</div>
+			          		{{/each}}
+			          		<div class="divider"></div>
+		          		{{/each}}	          
+			        </div>
+			      </div>
+			  	</div>
+
+			</div>
+
+			<div class="ui submit button">Erstellen</div>
+		</div>
+	{{/autoForm}}
+</template>

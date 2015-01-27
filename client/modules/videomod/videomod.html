@@ -1,0 +1,117 @@
+<template name="videomod">
+	<div id="videomodule">
+		<p class="ui header">Meistgesehen</p>
+		 <div class="ui stackable three column grid">	  
+		  	{{#each mostSeenVids}}
+			  	<div class="column">
+				    {{> simpleCard }}
+				</div>
+			{{/each}}   	   
+		</div>
+
+		<p class="ui header">Beliebte</p>
+		 <div class="ui stackable three column grid">	  
+		  	{{#each mostLovedVids}}
+			    <div class="column">
+				    {{> simpleCard }}
+				</div>
+			{{/each}}   	   
+		</div>
+
+		<p class="ui header">Neuste Videos</p>
+		<div class="ui stackable four column grid">
+			{{#each newVids}}
+			 	<div class="column">
+				    {{> simpleCard }}
+				</div>
+			{{/each}}	  
+		</div>
+
+		<p class="ui header">Aus {{currentLocation}}</p>
+		<div class="ui stackable four column grid">
+			{{#each locVids}}
+				<div class="column">
+				    {{> simpleCard }}
+				</div>
+			{{/each}}	  
+		</div>
+	</div>
+</template>
+
+<template name="simpleCard">
+	    <div class="ui fluid card">
+			<a class="star ui {{markedIf 'video' _id 'teal'}} corner label favorite">
+			  <i class="star icon"></i>
+			</a>
+			{{#if isDesktop}}
+			<div class="image dimmable">
+				<div class="ui dimmer">
+					<div class="content">
+						<a class="star ui {{markedIf 'video' _id 'teal'}} corner label favorite">
+						  <i class="star icon"></i>
+						</a>	
+				  		<div class="center">
+				  			<div class="ui inverted header">{{title}}</div>
+				  			<div class="two ui buttons">
+				      			<div class="ui labeled inverted green button playSong">
+				      				<i class="play icon"></i>
+				      				Abspielen				      				
+				      			</div>
+				      			<div class="ui right labeled inverted blue button addToPlaylist">
+				      				<i class="add icon"></i>
+				      				Hinzufügen				      				
+				      			</div> 
+				      		</div>
+				  		</div>
+				  	</div>
+				</div>
+				<img src="http://www.derme.com.br/wp-content/uploads/2011/01/placeholder.jpg"/>		        	        
+			</div>
+			{{else}}
+			<div class="image">
+				<img src="http://www.derme.com.br/wp-content/uploads/2011/01/placeholder.jpg" />
+				<div class="ui two bottom buttons">
+					<div class="ui labeled green button playSong">
+						<i class="play icon"></i>
+						Abspielen
+					</div>
+					<div class="ui labeled blue button addToPlaylist">
+						<i class="add icon"></i>
+						Hinzufürgen
+					</div>
+				</div>
+			</div>
+			{{/if}}
+			<div class="content">    	
+				<a class="name" href="{{pathFor 'singleVideo' id=_id}}">
+					{{interpret}} - {{title}}
+				</a>
+				{{#if genre}}
+				<a class="right floated ui tiny label">
+					{{genre}}
+				</a>
+				{{/if}} 
+				<div class="meta">
+					<a href="{{pathFor 'locations' name=location}}" class="inverted">
+						{{location}}
+					</a>					
+				</div>
+				<p class="description">
+					{{trimString description 30}}
+				</p>				
+			</div>
+			<div class="extra content">
+				{{> lovThis type="video" _id=_id lovs=lovs.count}}
+
+				
+				
+				<div class="ui tiny label"><i class="unhide icon"></i>{{#if views}}{{views}}{{else}}0{{/if}}</div>
+
+		
+				
+			  	<div class="right floated created">
+			  		{{formatTime createdAt "simple"}}
+				</div>
+			</div>
+		</div>
+</template>

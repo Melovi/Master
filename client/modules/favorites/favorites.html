@@ -1,0 +1,155 @@
+<template name="favorites">
+	{{#if currentUser}}
+		<div class="ui stackable two column grid">
+			
+			<div class="column">
+				<div class="ui dividing header">
+					<i class="star icon"></i>
+					<div class="content">
+						Videos
+						<div class="sub header">Meine Lieblingsvideos</div>
+					</div>
+				</div>
+				{{#each currentUser.profile.favorites.videos}}
+				<div class="ui relaxed list">
+					<div class="item">
+						<img class="ui avatar image" >
+						<div class="content favorite">
+							<a class="header">{{title}}</a>
+							<div class="description">{{quickInfo 'username' id}}</div>
+						</div>
+						<div class="right floated ui mini icon buttons" >
+							<div class="ui button playSong">
+								<i class="icon play"></i>
+							</div>							
+							<div class="ui button removeFav">
+								<i class="icon remove"></i>
+							</div>
+						</div>
+					</div>			
+				</div>
+				{{/each}}
+			</div>
+
+			<div class="column">
+				<div class="ui dividing header">
+					<i class="archive icon"></i>
+					<div class="content">
+						Playlists
+						<div class="sub header">Meine Playlists</div>
+					</div>
+				</div>
+				{{#each currentUser.profile.playlists}}
+				<div class="ui relaxed list">
+					<div class="item">
+						{{#with quickInfo "playlist" this}}
+						<img class="ui avatar image" src="{{quickInfo 'avatar' user}}">
+						<div class="content playlist">
+							
+							<a class="header">{{title}}</a>
+							<div class="description">{{description}}</div>
+							
+						</div>
+						<div class="right floated ui mini icon buttons" >
+							<div class="ui button playPlaylist">
+								<i class="icon play"></i>
+							</div>							
+							<div class="ui button removePlaylist">
+								<i class="icon remove"></i>
+							</div>
+						</div>
+						{{/with}}
+					</div>			
+				</div>
+				{{/each}}
+			</div>
+		
+
+			<div class="column">
+				<div class="ui dividing header">
+					<i class="marker icon"></i>
+					<div class="content">
+						Locations
+						<div class="sub header">Meine Lieblingslocations</div>
+					</div>
+				</div>
+				{{#each currentUser.profile.favorites.locations}}
+				<div class="ui relaxed list">
+					<div class="item">
+						<img class="ui avatar image">
+						<div class="content favorite">
+							<a class="header">{{name}}</a>
+							<div class="description">{{description}}</div>
+						</div>
+						<div class="right floated ui mini icon buttons" >					
+							<div class="ui button removeLoc">
+								<i class="icon remove"></i>
+							</div>
+						</div>
+					</div>			
+				</div>
+				{{/each}}
+			</div>
+			<div class="column">
+				<div class="ui dividing header">
+					<i class="sound icon"></i>
+					<div class="content">
+						Interpreten
+						<div class="sub header">Meine Lieblingsinterpreten</div>
+					</div>
+				</div>
+				{{#each currentUser.profile.favorites.interprets}}
+				<div class="ui relaxed list">
+					<div class="item">
+						<img class="ui avatar image">
+						<div class="content favorite">
+							<a class="header" href="{{pathFor 'interprets' name=name}}">{{name}}</a>							
+						</div>
+						<div class="right floated ui mini icon buttons" >					
+							<div class="ui button removeBand">
+								<i class="icon remove"></i>
+							</div>
+						</div>
+					</div>			
+				</div>
+				{{/each}}
+			</div>
+		
+		
+			<div class="column">
+				<div class="ui dividing header">
+					<i class="star icon"></i>
+					<div class="content">
+						Clips
+						<div class="sub header">Meine Lieblingsclips</div>
+					</div>
+				</div>
+				{{#each currentUser.profile.favorites.clips}}
+				<div class="ui relaxed list">
+					<div class="item">
+						<img class="ui avatar image">
+						<div class="content favorite">				
+							<a class="header">{{title}}</a>
+							<div class="description">{{description}}</div>
+						</div>
+						<div class="right floated ui mini icon buttons" >
+							<div class="ui button playClip">
+								<i class="icon play"></i>
+							</div>							
+							<div class="ui button removeFav">
+								<i class="icon remove"></i>
+							</div>
+						</div>
+					</div>			
+				</div>
+				{{/each}}
+			</div>
+			
+
+		</div>	
+
+	{{else}}
+		<h3>log in to use functions!</h3>
+	{{/if}}
+
+</template>

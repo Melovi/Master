@@ -1,0 +1,35 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+jquery
+underscore
+accounts-password
+accounts-ui
+aldeed:collection2
+iron:router
+raix:handlebar-helpers
+matteodem:easy-security
+audit-argument-checks
+fastclick
+zimme:iron-router-active
+less
+accounts-facebook
+service-configuration
+accounts-google
+accounts-twitter
+mystor:device-detection
+tomi:upload-server
+tomi:upload-jquery
+aldeed:simple-schema
+aldeed:autoform
+
+nooitaf:semantic-ui
+jameslefrere:autoform-semantic-ui
+
+
+cfs:standard-packages
+cfs:filesystem
+multiply:iron-router-progress

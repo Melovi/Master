@@ -1,0 +1,7 @@
+<Template name="lovThis">
+	{{#if currentUser}}
+		<span id="{{type}}" class="like lovThis">
+			<i class="like icon {{lovedIf type _id 'active'}}"></i>{{lovs}} Lov it!
+		</span>
+	{{/if}}
+</Template>

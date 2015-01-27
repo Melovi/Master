@@ -1,0 +1,37 @@
+#playlistContainer{
+	
+	position:fixed;
+	top: 60px;
+	right:20px;
+	width:320px;
+	z-index:99;
+	max-height:80vh;
+
+	#list{
+
+		height:400px;	
+		overflow-y:scroll;	
+
+		#elements{
+
+			height:100%;
+			overflow:auto;		
+			
+
+			.active{
+				color:teal;
+			}
+		}		
+	}
+}
+
+#fastEditPlaylist{
+	
+	position:fixed;
+	bottom: 56px;
+	left: 0px;
+	width: 100vw;	
+	background-color:#111;
+	z-index:500;
+	padding:10px 20px;
+}

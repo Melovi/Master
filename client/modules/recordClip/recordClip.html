@@ -1,0 +1,105 @@
+<template name="recordClip">
+
+	<div id="recordButton">
+		
+		
+		<div id="clipControls" class="hidden" style="float: left;">
+			<button class="ui button resetClip">reset</button>
+			<button class="ui button editClip" >edit</button>
+			{{!<button class="ui button useClip" >use</button>}}
+			<div class="ui vertical divider"></div>
+		</div>
+
+		
+		
+		<div id="record" class="ui circular {{isRecordable}} big red {{isRecording}} button">
+			<i class="record icon"></i>
+		</div>
+
+	</div>
+
+	{{#if recordingComplete}}
+
+		{{>fastEditClip}}
+
+	{{/if}}
+
+</template>
+
+<template name="fastEditClip">
+
+	<div id="fastEditClip" class="hidden">
+
+		{{#with editClip}}
+		<center>
+			{{#if this.isUploaded}}
+				<video id="previewVideo" src="{{this.url}}" height="300" width="400" autoPlay loop>
+				</video>
+			{{else}}
+				<div class="ui large active loader" style="height:400px"></div>
+			{{/if}}
+		</center>	
+
+		<div class="ui inverted segment">
+			<center>Cutting Tools</center>
+			<div class="trimmer">
+				{{#with positions}}
+				<div class="editTimline"></div>
+				<div id="position" class="pointer" style="left:{{position}}%"><i class="large inverted caret up icon"></i></div>
+				<div id="start" class="pointer" style="left:{{start}}%"><i class="big inverted caret right icon"></i></div>
+				<div id="end" class="pointer" style="left:{{end}}%"><i class="big inverted caret left icon"></i></div>
+				{{/with}}
+			</div>
+		</div>
+		{{/with}}
+
+		<div class="ui inverted small error form">
+			<div class="two fields">
+
+				<div class="field">
+					<div class="two fields">
+
+						{{!<div id="urlField" class="field">
+							<label>URL</label>
+							<input id="clipUrl" placeholder="Clip Url">
+						</div>		}}				
+
+						<div id="fileField" class="field">
+							<label>File</label>
+							<input type="file" id="file">
+						</div>
+
+						<div class="field">
+							<label>Titel</label>
+							<input id="clipTitle" placeholder="Clip Title" />
+						</div>
+
+					</div>
+				</div>
+
+				<div class="field">
+					<label>Tags</label>
+					<div class="three fields tags">
+
+						<div class="field">
+							<div class="ui small right action input">
+								<input class="tag" placeholder="tag 1">
+								<div class="ui small icon button addTag"><i class="add icon"></i></div>
+							</div>
+						</div>	
+
+					</div>
+
+				</div>
+			</div>
+			<center>
+				<div class="ui disabled positive submit button">
+					Abschicken
+				</div>
+				<div class="ui negative cancel button">
+					Abbrechen
+				</div>				
+			</center>
+		</div>
+	</div>
+</template>

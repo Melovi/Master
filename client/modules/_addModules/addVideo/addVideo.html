@@ -1,0 +1,187 @@
+<template name="addVideo"> 	
+	<div id="newVideo">
+		<div class="ui warning form segment">
+
+			<div class="ui three steps ">
+				<a id="1" class="{{completedIfFormIsDone 'fileComplete'}} {{activeIfTabIs 1}} step">
+					<i class="sound icon"></i>
+					<div class="content ">
+						<div class="title">Song</div>
+						<div class="description">für dein Video</div>
+					</div>
+				</a>
+				<a id="2" class="{{completedIfFormIsDone 'metaComplete'}} {{activeIfTabIs 2}} step">
+					<i class="write icon"></i>
+					<div class="content">
+						<div class="title">Beschreibung</div>
+						<div class="description">erzähl was über den Song</div>
+					</div>
+				</a>
+				<a id="3" class="{{activeIfTabIs 3}} step">
+					<i class="checkmark box icon"></i>
+					<div class="content">
+						<div class="title">Bestätigung</div>
+						<div class="description">ist hier alles in Ordnung?</div>
+					</div>
+				</a>			
+			</div>
+				
+			{{#autoForm collection="videos" id="insertVideoForm" type="insert"}}	
+
+			{{#if invalidInput}}
+				<div clasS="ui divider"	></div>
+				<div class="ui warning message"	>
+					<div class="header">Fast Da!</div>
+					<ul class="list">
+						{{#each inputsToCheck}}
+							{{#if afFieldIsInvalid name=fieldName}}
+								<li>{{afFieldMessage name=fieldName}}</li>
+							{{/if}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+			<div class="ui divider"></div>
+
+				<div class="{{hiddenIfTabIsNot 1}}">
+					<div class="field">
+						<label>Uploade deine File</label>
+						<div class="ui action input">
+						  <input type="file" value="" id="profileUpload">
+						  <div class="ui teal right labeled icon button">
+						    <i class="upload icon"></i>
+						    upload
+						  </div>
+						</div>
+					</div>
+					<div class="field">
+						<label>Oder den Link dazu</label>
+						{{> afFieldInput name='source' id='songSource' placeholder="http://www.example.com/audio.mp3"}}
+					</div>
+
+					<div id="newFile" class="ui right labeled icon button next">
+						Nächster Schritt
+						<i class="right chevron icon"></i>
+					</div>
+					
+				</div>
+				
+				<div id="addVideo_Meta" class="{{hiddenIfTabIsNot 2}}">	
+
+					<div class="field {{#if afFieldIsInvalid name='title' }}error{{/if}}">
+						<label>Titel</label>
+						{{> afFieldInput name="title" id="songTitle" placeholder="Titel"}}		
+						
+					</div>
+					<div class="field {{#if afFieldIsInvalid name='subtitle' }}error{{/if}}">
+						<label>Untertitel</label>
+						{{> afFieldInput name="subtitle" id="songSubtitle" placeholder="Untertitel"}}							
+					</div>
+					<div class="field {{#if afFieldIsInvalid name='description' }}error{{/if}}">
+						<label>Beschreibung</label>
+						{{> afFieldInput name="description" id="songDescription" rows=6 placeholder="Beschreibung"}}						
+					</div>
+					<div class="four fields">
+
+						<div class="field {{#if afFieldIsInvalid name='location' }}error{{/if}}">
+							<label>Location</label>											
+							{{> afFieldInput name="location" id="songLocation" options=locationOptions }}								
+						</div>
+
+						<div class="field {{#if afFieldIsInvalid name='genre' }}error{{/if}}">
+							<label>Genre</label>							
+							{{> afFieldInput name="genre" id="songGenre" options=genreOptions }}					
+						</div>
+
+						<div class="field {{#if afFieldIsInvalid name='bpm' }}error{{/if}}">
+							<label>Beats Per Minute</label>
+							{{> afFieldInput id="songBpm" name="bpm" placeholder="BPM"}}								
+						</div>	
+
+						<div class="field {{#if afFieldIsInvalid name='tags' }}error{{/if}}">
+							<label>Tags</label>
+							{{> afArrayField id="songTags" name="tags" placeholder="Tag"}}
+						</div>					
+								
+					</div>
+
+					
+
+					<div id="newMeta" class="ui right labeled icon button next">
+						Nächster Schritt
+						<i class="right chevron icon"></i>
+					</div>
+				</div>
+
+				<div id="addVideo_confirm" class="{{hiddenIfTabIsNot 3}}">
+
+					<h2>Alles Richtig?</h2>
+					{{#with videos}}
+						<div class="ui card">	 
+								  	
+					      <div class="image">
+					        <img src="http://susancorso.com/seedsforsanctuary/wp-content/uploads/2013/04/box_placeholder.jpg">
+					        <a class="star ui corner label favorite">
+					          <i class="star icon"></i>
+					        </a>
+					      </div>
+					      <div class="content">
+					      	<div class="header">{{title}}</div>
+					        <div class="name">{{subtitle}}</div>	        
+					        <div class="meta">		        	
+					        	<a class="black category" href="../location/{{location}}">{{location}}</a>
+					        </div>
+					        <p class="description">{{description}}</p>
+					      </div>					     
+						</div>
+
+					{{/with}}
+
+					<div id="videoSubmit" class="ui positive submit button">Create new Video</div>
+				</div>
+
+			{{/autoForm}}
+		</div>
+	</div>
+
+</template>
+
+
+<template name="addClip">
+	<h1>Clip zu Video hinzufügen</h1>
+    <div>
+    	<h2>Name</h2>
+    	<input type="text" id="clipName" placeholder="Clip Name"/>
+    </div>
+    <div>
+    	<p>Toggle Video</p>
+	    <button id="firstVid">Video 1</button>
+	    <button id="secondVid">Video 2</button>
+	    <button id="thirdVid">Video 3</button>
+	</div>
+	<div>
+		<p>Toggle User</p>
+	    <button id="firstUser">User 1</button>
+	    <button id="secondUser">User 2</button>
+	    <button id="thirdUser">User 3</button>
+	</div>
+	<div id="tags">
+		<input type="text" id="tag_1" placeholder="add new tag" />		
+	</div>
+	<button id="addTag">Add Tag</button>
+	<div>
+		<p>Clip position</p>
+		<input type="text" id="clipStart" value="0"/>s
+	</div>
+	<div>
+		<p>url</p>
+		<p>http://melovi.de/php/files/VID_20141121_141828.mp4</p>
+		<p>http://melovi.de/php/files/VID_20141121_142025.mp4</p>
+		<p>http://melovi.de/php/files/VID_20141121_142117.mp4</p>
+		<p>http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4</p>
+	    <input type="text" name="clipUrl" id="clipUrl" placeholder="type url here" />
+	    <button id="submitClip" name="submitClip">Send it!</button> 
+	</div>
+</template>
+

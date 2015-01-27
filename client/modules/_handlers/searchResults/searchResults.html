@@ -1,0 +1,55 @@
+<template name="searchResults">
+
+			<div class="header item green">
+				<i class="music icon"></i>
+				Songs
+			</div>
+			{{#each searchResults.songs}}
+			<a class="item" href="{{pathFor 'singleVideo' id=_id}}">
+				{{title}} - {{interpret}}
+			</a>
+			{{/each}}
+
+			<div class="header item">
+				<i class="users icon"></i>
+				Interprets
+			</div>
+			{{#each searchResults.interprets}}
+			<a class="item" href="{{pathFor 'interprets' name=name}}">
+				{{name}}
+			</a>
+			{{/each}}
+
+			{{#if currentUser}}
+			<div class="header item">
+				<i class="user icon"></i>
+				Users
+			</div>
+			{{#each searchResults.users}}
+			<a class="item" href="{{pathFor 'profile' id=_id}}">
+				{{username}}
+			</a>
+			{{/each}}
+			{{/if}}
+
+			<div class="header item">
+				<i class="location arrow icon"></i>
+				Locations
+			</div>
+			{{#each searchResults.locations}}
+			<a class="item" href="{{pathFor 'locations' name=name}}">
+				{{name}}
+			</a>
+			{{/each}}
+
+			<div class="header item">
+				<i class="tags icon"></i>
+				Genres
+			</div>
+			{{#each searchResults.genres}}
+			<a class="item" href="#">
+				{{name}}
+			</a>
+			{{/each}}
+	
+</template>

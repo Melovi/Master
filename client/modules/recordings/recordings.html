@@ -1,0 +1,69 @@
+<template name="recordings">
+
+	<div class="ui horizontal header divider"><i class="small child icon"></i>Eigene Clips</div>
+
+	<div class="ui stackable three column grid">
+		
+	
+		{{#each myRecordings}}	
+			{{> clipCard}}
+		{{/each}}
+		
+		<div id="ownClips" class="ui button expandList">Erweitern</div>
+
+		<div class="ui horizontal header divider"><i class="small like icon"></i>Beliebte Clips</div>
+
+		{{#each popularRecordings}}
+			{{> clipCard}}
+		{{/each}}
+		
+		<div id="popularClips" class="ui button expandList">Erweitern</div>
+
+		<div class="ui horizontal header divider"><i class="small asterisk icon"></i>Neuste Clips</div>
+
+		
+		{{#each newRecordings}}
+			{{> clipCard}}
+		{{/each}}
+		
+		<div id="newClips" class="ui button expandList">Erweitern</div>
+
+	</div>
+	
+</template>
+
+<template name="clipCard">
+	<div class="column">
+		<a class="ui fluid card" href="{{pathFor 'clips' id=id}}">
+			<div class="image">
+				<a class="star ui {{markedIf 'clip' _id 'green'}} corner label favorite">
+				  <i class="star icon"></i>
+				</a>
+				{{#with quickInfo 'videoclip' clipRef}}
+				<video id="{{_id}}" class="ui image videoCard" src="{{this.url}}">
+				</video>
+				{{else}}
+				<img class="ui image videocard" src="http://xmascashkitmembers.com/kit-download-access/wp-content/uploads/2013/05/video_placeholder.jpg">
+				{{/with}}
+			</div>
+			<div class="content">
+				<a class="header" >{{#if title}}{{title}}{{else}}{{user.name}} 's Clip{{/if}}</a>
+				<div class="meta">
+					<div class="right floated">{{formatTime createdAt "simple"}}</div>
+					<a href="{{pathFor 'singleVideo' id=videoId}}">{{videoTitle}}  -  {{videoInterpret}}</a>
+				</div>
+			</div>
+			<div class="extra content">
+				{{#each tags}}
+					<a class="ui tiny label">
+						{{this}}
+					</a>
+				{{/each}}
+				<span class="like lovThis">
+					<i class="like icon {{lovedIf 'clip' _id 'active'}}"></i>{{lovs.count}} Lov it!
+				</span>				
+			</div>
+		</a>
+	</div>
+
+</template>

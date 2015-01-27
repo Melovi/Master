@@ -1,0 +1,46 @@
+tempstore.txt
+
+
+<div class="ui stackable three column grid">
+		{{#if queue}}
+			<h3 class="header">Nach Filter kommen in Frage</h3>
+			<div class="column">
+				<h5 class="header">Player 1</h5>
+									
+						<video id="player_1" class="{{clipRef}}" width="200" height="110" >
+							{{#with getClips 1}}
+							<source src="{{#with getVid clipRef}}{{this.url}}{{/with}}">
+							{{playMe startPosition endPosition clipRef}}
+							{{/with}}
+						</video>
+
+					
+				
+			</div>
+			<div class="column">
+				<h5 class="header">Player 2</h5>
+				
+						<video id="player_2" class="{{clipRef}}" width="200" height="110" >
+							{{#with getClips 2}}
+							<source src="{{#with getVid clipRef}}{{this.url}}{{/with}}">
+							{{playMe startPosition endPosition clipRef}}
+							{{/with}}
+						</video>					
+					
+			</div>
+			<div class="column">
+				<h5 class="header">Player 3</h5>
+				
+					{{title}}
+					
+						<video id="player_3" class="{{clipRef}}" width="200" height="110" >
+							{{#with getClips 3}}
+							<source src="{{#with getVid clipRef}}{{this.url}}{{/with}}">
+								{{playMe startPosition endPosition clipRef}}
+							{{/with}}
+						</video>
+					
+					
+			</div>
+			{{/if}}
+	</div>

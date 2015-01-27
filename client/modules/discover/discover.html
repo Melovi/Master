@@ -1,0 +1,134 @@
+<template name="discover">
+	<div id="discover">
+		<div class="ui right floated search dropdown">
+			<input id="locationSelect" type="hidden">
+			<div class="default text">{{currentLocation}}</div>
+			<i class="dropdown icon"></i>
+			<div class="menu">
+				{{#each locations}}
+					<div class="item" data-value="{{name}}">{{name}}</div>
+				{{/each}}
+			</div>
+		</div>
+
+		<div class="ui horizontal header divider"><i class="video icon"></i>Videos aus {{currentLocation}}</div>
+
+		<dic class="ui stackable three column grid">
+			{{#each videos}}
+			<div class="column">
+				<div class="ui fluid card">
+					<a id="video" class="star ui {{markedIf 'video' _id 'teal'}} corner label favorite">
+					  <i class="star icon"></i>
+					</a>
+					<div class="content">
+						<a class="header" href="{{pathFor 'singleVideo' id=_id}}">{{title}}</a>
+						<a class="meta" href="{{pathFor 'interprets' id=interpret}}">
+							<img class="ui avatar image" src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-ash2/v/t1.0-9/1377080_582184585172485_568028409_n.jpg?oh=c63ab52a423faea3d88331d81d604929&oe=552FC1EA&__gda__=1428199245_4ff527aa841d0bd9aa3a7d8a032be78a">
+							{{quickInfo "bandname" _id}} Testname
+						</a>
+						<div class="description">
+							{{trimString description 20}}
+						</div>
+						<div class="ui buttons">
+							<div class="ui labeled green button playSong">
+								<i class="play icon"></i>								
+							</div>
+							<div class="ui labeled blue button addToPlaylist">
+								<i class="add icon"></i>								
+							</div>
+						</div>
+					</div>
+					<div class="extra content">
+						{{> lovThis type="video" _id=_id lovs=lovs.count}}
+						{{#if genre}}
+						<div class="right floated ui tiny label">
+							{{genre}}
+						</div>
+						{{/if}}
+					</div>
+
+				</div>
+			</div>
+			{{/each}}
+		</dic>
+
+		<div class="ui horizontal header divider"><i class="ticket icon"></i>Veranstaltungen in {{currentLocation}}</div>
+
+		<div class="ui stackable three column grid">
+			{{#each userEvents}}		
+			<div class="column">
+				<a class="ui fluid card" href="{{pathFor 'eventDetail' id=_id }}">
+					<div class="content">
+						<a class="header" >{{name}}</a>
+						<div class="meta">
+							{{address.zipcode}} {{address.city}} <br/> 
+							{{address.street}} {{address.streetNumber}}
+						</div>
+						<div class="description">{{description}}</div>
+					</div>
+				</a>
+			</div>
+			{{/each}}
+		</div>
+		
+		<div class="ui horizontal header divider"><i class="sound icon"></i>Musiker aus {{currentLocation}}</div>
+
+		<div class="ui stackable three column grid">
+			{{#each interprets}}
+			<div class="column">
+				<div class="ui fluid card" href="{{pathFor 'interprets' id=_id}}">
+					<a id="band" class="star ui {{markedIf 'interpret' _id 'blue'}} corner label favorite">
+					  <i class="star icon"></i>
+					</a>
+					<img class="ui tiny left floated tiny image" src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-ash2/v/t1.0-9/1377080_582184585172485_568028409_n.jpg?oh=c63ab52a423faea3d88331d81d604929&oe=552FC1EA&__gda__=1428199245_4ff527aa841d0bd9aa3a7d8a032be78a">
+					<div class="content">
+						<div class="header">
+							<a href="{{pathFor 'interprets' _id}}">{{name}}</a>
+						</div>				
+					</div>	
+					<div class="extra content">	
+						{{> lovThis type="interpret" _id=_id lovs=lovs.count}}	
+						{{#if genre}}				
+						<div class="right floated ui tiny label">
+							{{genre}}
+						</div>
+						{{/if}}
+					</div>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+
+		<div class="ui horizontal header divider"><i class="photo icon"></i>Sehenswertes in {{currentLocation}}</div>
+
+		
+
+		<div class="ui horizontal header divider"><i class="folder icon"></i>{{currentLocation}}er Playlisten</div>
+
+		<div class="ui stackable three column grid">
+			{{#each playlists}}		
+			<div class="column">
+				<a class="ui fluid card" href="{{pathFor 'playlists' id=_id }}">
+					<a id="playlist" class="star ui {{markedIf 'playlist' _id 'brown'}} corner label favorite">
+					  <i class="star icon"></i>
+					</a>
+					<div class="content">
+						<a class="header" >{{title}}</a>
+						<div class="meta">
+							{{location}} <br/> 
+							<img class="ui avatar image" src="{{quickInfo 'avatar' user}}"> {{quickInfo "username" user}}
+						</div>
+						<div class="description">{{description}}</div>
+						<div>{{videos.length}} videos</div>
+					</div>
+					<div class="extra content">
+						{{> lovThis type="playlist" _id=_id lovs=lovs.count}}
+					</div>
+				</a>
+			</div>
+			{{/each}}
+		</div>
+
+	</div>
+
+</template>

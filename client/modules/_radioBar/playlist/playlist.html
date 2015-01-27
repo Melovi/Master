@@ -1,0 +1,116 @@
+<template name="playlist">
+	<div id="playlistContainer" class="ui raised segment hidden">
+		{{#with currentPlaylist}}
+		<div id="{{_id}}" class="hidden idContainer"></div> 
+		<div class="ui icon header">
+			{{#if currentUser}}
+				<div class="ui transparent action input">
+					<input id="playListTitle" type="text" value="{{title}}" />
+					{{#if _id}}
+					<div class="ui buttons">
+						<div class="ui small button positive" id="overwrite">Save</div>
+						<div class="or"></div>		
+						<div class="ui blue small button" id="savePlaylist">New</div>
+					</div>
+					{{else}}
+					<div class="ui blue small button" id="savePlaylist">New</div>
+					{{/if}}
+				</div>
+			{{else}}
+				Playlist
+			{{/if}}				
+		</div>
+
+		<div id="list" class="ui segment">
+			<div class="ui divided list">
+				{{#each listElement}}					
+					<div class="item meta {{#if activeSong}}active{{/if}}" id="{{index}}" >
+						<div class="hidden videoId" id="{{value}}"></div> 
+						<div class="right floated ui vertical mini icon buttons" >
+							<div id="{{index}}" class="ui button vidUp">
+								<i class="icon chevron up"></i>
+							</div>
+							<div id="{{index}}" class="ui button vidDown">
+								<i class="icon chevron down"></i>
+							</div>
+							<div id="{{index}}" class="ui button removeVid">
+								<i class="icon remove"></i>
+							</div>
+						</div>
+						<i class="icon music"></i>
+						<div class="content">
+							{{#with quickInfo "video" value}}
+							<a class="header">
+								{{title}}
+								<br/>
+								{{interpret}}
+							</a>
+							<div class="description">
+								{{location}}								
+							</div>
+							{{/with}}
+						</div>						
+					</div>					
+				{{/each}}
+			</div>			
+		</div>
+		<div class="ui button right" id="closePlaylist">close</div>
+	{{/with}}
+	</div>
+
+
+	{{> fastEditPlaylist}}
+
+</template>
+
+<template name="playlistDetails">
+
+	
+
+</template>
+
+<template name="fastEditPlaylist">
+
+	<div id="fastEditPlaylist" class="hidden">		
+
+		<div class="ui inverted small form">
+			<div class="two fields">
+
+				<div class="field">
+					<div class="two fields">
+						<div class="field">
+							<label>Titel</label>
+							<input id="submitTitle" placeholder="Playlist Titel" />
+						</div>
+
+						<div class="field">
+							<label>Beschreibung</label>
+							<input id="playlistDescription" placholder="Playlist Beschreibung">
+						</div>
+					</div>
+				</div>
+
+				<div class="field">
+					<label>Tags</label>
+					<div class="three fields tags">
+						<div class="field">
+							<div class="ui small right action input">
+								<input class="tag" placeholder="tag 1">
+								<div class="ui small icon button addTag"><i class="add icon"></i></div>
+							</div>
+						</div>						
+					</div>
+				</div>
+
+			</div>
+			<center>
+				<div class="ui cancel button">
+					Abbrechen
+				</div>
+				<div class="ui submit button">
+					Abschicken
+				</div>
+			</center>
+		</div>
+	</div>
+</template>

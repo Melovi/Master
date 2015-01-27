@@ -1,0 +1,35 @@
+<template name="login">
+	
+{{#if currentUser}}
+<div class="ui center aligned backgroundgreen">
+<a href="#" class="logout"><button class="ui red button">Logout</button></a>
+</div>
+{{else}}
+<div class="ui center aligned backgroundgreen">
+<button class="ui green button loginButton"><i class="sign in icon"></i>Sign In</button>
+<button class="ui blue button joinButton"> <i class="heart icon"></i>Join</button>
+</div>
+
+<div class="ui segment" id="loginPanel">
+	<div class="wrapper">
+<form id="formLogin" class="ui form segment" action="action">
+	 <div class="field">
+       <input type="email" name="email" id="login-email">
+     </div>
+       <div class="field">
+    <input type="password" name="password" id="login-password">
+</div>
+    <input class="ui blue button" type="submit" value="Sign In">
+</form>
+<button id="loginFacebookButton" class="ui facebook button"><i class="facebook icon"></i> mit Facebook einloggen</button>
+<button id="loginGooglePlusButton" class="ui google plus button"><i class="google plus icon"></i> mit Google+ einloggen</button>
+<button id="loginTwitterButton" class="ui twitter button"><i class="twitter icon"></i> mit Twitter einloggen</button>
+
+</div>
+</div>
+{{/if}}
+
+
+
+
+</template>

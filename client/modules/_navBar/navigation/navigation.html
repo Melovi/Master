@@ -1,0 +1,35 @@
+<template name="navigation">    
+ 
+    <div class="ui top fixed large inverted menu myNav">
+  
+      <a id="settings" class="item">
+        <i class="tasks icon"></i>
+      </a>
+      {{#each navigationItems}}
+      <a class="{{activeIfTemplateIs activeTemplate}} item" href="{{pathFor path}}">
+        <i class="{{icon}} icon"></i>
+        {{#if isDesktop}}
+          {{label}}
+        {{else}}          
+        {{/if}}
+      </a>
+      {{/each}}
+      {{#if isDesktop}}
+      <div class="right menu">
+        <div class="item">
+          {{> search}}
+        </div>
+        {{#if currentUser}}
+          <a class="ui negative button item" id="navLogout">
+            LOG OUT
+          </a>
+        {{else}}
+          <a class="ui positive button item" id="showLogin">
+            LOG IN
+          </a>
+        {{/if}}
+      </div>
+      {{/if}}
+    </div> 
+  
+</template>

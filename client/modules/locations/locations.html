@@ -1,0 +1,22 @@
+<template name="locations">
+	{{#with locations}}			
+		 <div class="ui one connected items">	 
+		  	
+		    <div class="item">
+		      <div class="image">
+		        <img src="http://susancorso.com/seedsforsanctuary/wp-content/uploads/2013/04/box_placeholder.jpg">
+		        <a class="star ui {{markedIf 'location' _id 'yellow'}} corner label favorite">
+		          <i class="star icon"></i>
+		        </a>
+		      </div>
+		      <div class="content">
+		        <a class="name">{{name}}</a>
+		        <div class="header">{{state}}</div>
+		        <p class="description">{{description}}</p>
+		      </div>
+		    </div>
+			   
+		</div>
+
+		{{/with}}
+</template>

@@ -1,0 +1,115 @@
+<template name="settings">
+	<div class="ui borderless left vertical inverted wide sidebar menu">
+		<div class="item">
+			{{> search}}
+		</div>
+
+		{{#if activeSearch}}
+				{{> searchResults}}			
+		{{else}}
+
+			<div class="red item">
+				<div class="ui left floated circular small image" ><img src="{{currentUser.profile.avatar}}" /></div>
+				<div class="ui inverted header">
+					<h2>{{currentUser.username}}</h2>
+					{{#if currentUser.profile.firstName}}
+						<h4>{{currentUser.profile.firstName}} {{currentUser.profile.lastName}}</h4>
+					{{/if}}
+					{{#if currentUser.profile.organization}}
+						<p>{{currentUser.profile.organization}}</p>
+					{{/if}}
+					<br style="clear:both" />
+				</div>
+			</div>
+			<div class="ui divider"></div>
+			{{#each navigationItems}}
+			<a class="item" href="{{pathFor path}}">
+				
+				<i class="circled {{icon}} icon"></i>{{label}}
+			</a>
+			{{/each}}
+			<div class="ui divider"></div>
+			{{#each subNavigationItems}}
+			<a class="item" href="{{pathFor path}}">
+
+				<div class="header">{{label}}</div>
+
+			</a>
+			{{/each}}
+
+		{{/if}}
+	  	
+	</div>
+
+</template>
+
+<template name="oldSettings">
+
+    <div id="settingsContainer">
+    	<div class="overlay">
+    	</div>
+		<div class="settings">
+			<div id="settingsProfile">
+				<div class="profileContainer">		
+	    			<div id="settingsMetaContainer">
+	    				<div class="thumb-big">
+	    					<img src="{{currentUser.profile.avatar}}" />
+	    					<br style="clear:both">
+	    				</div>	   
+	    				<div id="settingsUsername">
+	    					{{currentUser.username}}
+	    				</div>
+	    				<div id="settingsUserRank">
+	    					{{currentUser.profile.organization}}
+	    				</div>
+	    				<div id="SettingsUserRank">
+	    					{{currentUser.profile.location}} Augsburg
+	    				</div>
+	    				<div id="settingsUserRank">
+	    					{{currentUser.profile.rank}} Newbie
+	    				</div>
+	    				<br style="clear:both">
+	    			</div>
+    				<div id="settingsUsermail">
+    					{{mailAddress}}
+    					<button id="settingsProfileExtra" class="miniIcon"></button>
+    				</div>
+    			</div>
+			</div>
+			<div id="settingsNav">
+				<ul>
+					{{#each navigationItems}}
+    					<a href="{{pathFor path}}">
+	    					<li>
+		    					<div class="circledIcon">
+		    						<i class="{{icon}} icon"></i>
+		    					</div>
+		    					{{label}}
+			    			</li>
+			    		</a>
+		    		{{/each}}
+	    		</ul>
+			</div>
+			<div id="settingsHelp">
+				<ul>
+					<a href="#">
+    					<li>
+	    					Einstellungen
+		    			</li>
+		    		</a>
+		    		<a href="#">
+		    			<li>
+	    					Hilfe
+		    			</li>
+		    		</a>
+		    		<a href="#">
+		    			<li>
+		    				Über Uns
+		    			</li>
+		    		</a>
+	    		</ul>
+			</div>
+		</div>
+	</div>
+
+</template>

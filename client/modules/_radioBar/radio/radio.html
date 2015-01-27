@@ -1,0 +1,68 @@
+<template name="radio">
+	
+	{{#if collectionsReady}}	
+		<div class="ui borderless bottom fixed large inverted menu radio">
+
+			<div id="mainSlider" class="slider">
+			</div>
+			<div id="mainTimeline" class="timeline">
+				<div id="mainProgress" class="progress" style="width:{{timelineWidth}}"></div>
+			</div>
+
+			<div class="left menu">
+				<div class="small item">
+					{{#if isPlaying}}
+						<a id="mainPause" ><i class="pause icon"></i></a>
+					{{else}}
+						<a id="mainPlay"> <i class="play icon"></i></a>
+					{{/if}}
+				</div>
+				<div class="item ">
+					<a id="mainForward" ><i class="step forward icon"></i></a>
+				</div>
+				<div class="item">
+					{{#with audio}}
+						<a href="{{pathFor 'singleVideo' id=_id}}" class="header">
+							{{title}}
+						</a>	
+						 - 					
+						<a href="{{pathFor 'interprets' name=interpret}}" class="meta">
+							{{interpret}}
+						</a>
+						<audio id="mainAudio" src="{{source}}"></audio>				
+					{{else}}
+						<div class="header">
+							Titel - Interpret
+						</div>
+						<audio id="mainAudio"></audio>
+					{{/with}}
+
+				</div>
+			</div>
+
+			<div class="right menu">
+				
+				<a id="mainLoop" class="item">
+					<i class="inverted repeat icon"></i>
+				</a>
+				
+				<a id="mainPlaylist" class="item">
+					<i class="inverted archive icon"></i>
+				</a>
+
+				<a id="mainVideo" class="item" href="{{pathFor 'singleVideo' id=audio._id}}">
+					<i id="mainVideo" class="inverted video play icon"></i>
+				</a>
+
+			</div>
+
+		</div>
+
+		{{> playlist}}
+		{{#if currentUser}}
+			{{> recordClip}}
+		{{/if}}
+	{{/if}}
+	
+</template>
+

@@ -1,0 +1,26 @@
+<template name="setLocation">
+	{{myCity}}
+	<div class="myPrompt">
+		<div class="overlay">
+			<div class="listContainer">
+				<div class="selection">
+					<h2>Geben Sie bitte ihren gewünschten Ort ein</h2>
+					<select id="chooseCity">
+						{{#each cities}}
+							<option value="{{name}}">{{name}}</option>
+						{{/each}}
+					</select>
+					<div class="confirmation">
+						<div class="confirm">
+							<center>OK</center>
+						</div>
+						<div class="cancel">
+							<center>Cancel</center>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</template>

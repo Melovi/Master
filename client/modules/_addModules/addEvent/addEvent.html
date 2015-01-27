@@ -1,0 +1,87 @@
+<template name="addEvent">
+	{{#autoForm collection="UserEvents" id="insertUserEvent" type="insert"}}
+			<div class="ui warning form segment">
+
+				<div class="field">
+					<label>Name</label>
+					{{> afFieldInput name="name" id="name" placeholder="Name des Events"}}					
+				</div>
+
+				<div class="field">
+					<label>Untertitel</label>
+					{{> afFieldInput name="subtitle" id="subtitle" placeholder="Untertitel"}}					
+				</div>
+
+				<div class="field ">
+					<label>Beschreibung</label>
+					{{> afFieldInput name="description" id="description" rows=6 placeholder="Sag was geht"}}		
+				</div>
+
+				<div class="three fields">
+
+					<div class="field">
+						<label>Wann</label>
+
+						<div class="field">							
+							{{> afFieldInput name="date" id="date" placeholder="Datum"}}
+						</div>
+						
+						<div class="field">
+							<label>Uhrzeit</label>
+							<input type="time" name="time" id="time">
+						</div>
+						
+					</div>
+
+					<div class="field">
+						<label>Wo</label>
+
+						<div class="field">					     
+					      <div class="ui search selection dropdown">
+					        <input type="hidden" id="location" value="{{currentLocation}}">
+					        <div class="default text">{{currentLocation}}</div>
+					        <i class="dropdown icon"></i>
+					        <div class="menu">
+					        	{{#each locationOptions}}	        	
+					          		<div class="item" data-value="{{value}}">{{label}}</div>   		
+				          		{{/each}}	          
+					        </div>
+					      </div>
+					  	</div>
+
+					  	<div class="fields">
+					  		<div class="twelve wide field">
+					  			{{> afFieldInput name="address.street" id="street" placeholder="Straße"}}
+					  		</div>
+					  		<div class="four wide field">
+					  			{{> afFieldInput name="address.streetNumber" id="streetNumber" placeholder="Nr."}}
+					  		</div>
+					  	</div>
+
+					</div>			
+
+					<div class="field">
+				      <label>Was</label>
+				      <div class="ui search selection dropdown">
+				        <input type="hidden" id="genre">
+				        <div class="default text">Genre</div>
+				        <i class="dropdown icon"></i>
+				        <div class="menu">
+				        	{{#each genreOptions}}
+				        	<div class="header">{{optgroup}}</div>
+				        		{{#each options}}
+				          		<div class="item" data-value="{{value}}">{{label}}</div>
+				          		{{/each}}
+				          		<div class="divider"></div>
+			          		{{/each}}	          
+				        </div>
+				      </div>
+				  	</div>
+
+				</div>
+
+				<div class="ui submit button">Erstellen</div>
+			</div>
+		{{/autoForm}}
+	
+</template>

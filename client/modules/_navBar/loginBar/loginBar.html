@@ -1,0 +1,89 @@
+<template name="loginBar">
+	<div id="loginRegisterBar">
+		{{#if loginOrRegister}}
+			<div id="loginBar">
+				<div class="ui left aligned basic fitted segment {{loginActive}}">
+					<form id="loginBarForm" class="ui form at-form">
+
+						<div class="field">
+							<label>Email</label>
+							<div class="ui icon labeled input">
+								<input id="loginBarEmail" type="text" placeholder="email or username"/>
+								<div class="ui corner label">
+									<i class="icon asterisk"></i>
+								</div>
+							</div>
+						</div>
+
+						<div class="field">
+							<label>Password</label>
+							<div class="ui icon labeled input">
+								<input id="loginBarPassword" type="password" placeholder="password"/>
+								<div class="ui corner label">
+									<i class="icon asterisk"></i>
+								</div>
+							</div>
+						</div>
+
+						<button type="submit" id="loginButton" class="ui green fluid labeled icon button">Log In 
+							<i class="sign in icon"></i>
+						</button>
+					</form>
+				</div>
+				<div class="ui horizontal divider">
+					OR
+				</div>
+				<button id="loginBarRegister" class="ui blue fluid labeled icon button">Register <i class="signup icon"></i></button>
+			</div>
+		{{else}}
+			<div id="registerBar" class="ui left aligned basic fitted segment">
+				<form id="registerBarForm" class="ui form at-form">
+
+					<div class="field">
+						<label>Username</label>
+						<div class="ui icon labeled input">
+							<input id="registerBarUsername" type="text" placeholder="username"/>
+							<div class="ui corner label">
+					          <i class="icon asterisk"></i>
+					        </div>
+						</div>						
+					</div>
+
+					<div class="field">
+						<label>Email</label>
+						<div class="ui icon labeled input">
+							<input id="registerBarEmail" type="text" placeholder="email"/>
+							<div class="ui corner label">
+					          <i class="icon asterisk"></i>
+					        </div>
+						</div>						
+					</div>
+
+					<div class="field">
+						<label>Password</label>
+						<div class="ui icon labeled input">
+							<input id="registerBarPassword" type="password" placeholder="password"/>
+							<div class="ui corner label">
+					          <i class="icon asterisk">
+					          </i>
+					        </div>
+						</div>						
+					</div>
+
+					<div class="field">
+						<label>Confirm Password</label>
+						<div class="ui icon labeled input">
+							<input id="registerBarPasswordConfirm" type="password" placeholder="conrfirm password" />
+							<div class="ui corner label">
+					          <i class="icon asterisk"></i>
+					        </div>
+						</div>						
+					</div>
+					<br style="clear:both"/>
+
+					<button class="ui blue fluid labeled icon button" type="submit" id="submitRegisterForm" >Join!<i class="signup icon"></i></button>
+				</form>
+			</div>
+		{{/if}}
+	</div>
+</template>

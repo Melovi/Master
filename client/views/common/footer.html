@@ -1,0 +1,33 @@
+<template name="footer">
+	<div class="ui center aligned">
+		<div class="ui blue inverted segment">
+			<div class="ui horizontal list">
+
+				{{#each links}}
+					 <div class="item">
+				    	<div class="content">
+				      		<div>{{> footerLink}}</div>
+				    	</div>
+				 	</div>						
+				{{/each}}
+				</div>
+
+				<div class="ui horizontal icon divider">
+			 		 <i class="circular inverted blue heart icon"></i>
+				</div>
+
+			<p class="ui header">Join Us</p>
+			<a href="https://www.facebook.com/melovi.de" target="_blank"><i class="circular facebook icon"></i></a>
+			<a href="https://plus.google.com/110497023397255036547" target="_blank"><i class="circular google plus icon"></i></a>
+			<a href="https://twitter.com/marcelgiehler" target="_blank"><i class="circular twitter icon"></i></a>
+			<br>
+			<br>
+			<a href="{{pathFor "impressum"}}" ><p>Impressum - 2014</p></a>
+		</div>
+	</div>
+</template>
+
+
+<template name="footerLink">
+	<li><a href="{{route}}">{{name}}</a></li>
+</template>

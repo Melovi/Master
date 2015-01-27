@@ -1,0 +1,122 @@
+<template name="eventLoader">
+  <div class="events">
+    <div class="ui stackable three column grid">
+      <h2 class="header">Previous Events</h2>    
+      {{#each prevUserEvents}}  
+        <div class="column"  >
+          {{> eventItem}}
+        </div>
+      {{/each}}   
+      
+      <div class="ui divider"></div>
+
+      <h2 class="header">Next Events</h2> 
+      {{#each nextUserEvents}} 
+        <div class="column"  >
+          {{> eventItem}}
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="ui center primary button moreEvents">Zeig mir mehr!</div>
+  </div>
+</template>
+
+<template name="eventDetail">
+
+      {{#with userEvent}}
+      <div class="ui fluid card">  
+          <div class="image">
+            <img src="http://susancorso.com/seedsforsanctuary/wp-content/uploads/2013/04/box_placeholder.jpg"/>
+          </div>       
+          <div class="content"> 
+            <div class="header">{{name}}</div>
+            <div class="name">{{subtitle}}</div>
+            <div class="meta">
+              <div class="right floated time">{{formatTime date "detailed"}}</div>
+              <br/>
+              <div class="right floated ui dropdown">
+                <div class="text">Participants</div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  {{#each participants}}
+                    <div class="item">
+                      <img class="ui tiny avatar image" src="{{quickInfo 'avatar' this}}">{{quickInfo 'username' this}}
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+
+              <a class="autor">
+                <img class="ui avatar image" src="{{quickInfo 'avatar' user}}" />
+                {{quickInfo 'username' user}}
+              </a>
+
+            </div>       
+            <div class="description">
+              {{address.city}}<br/>
+              {{address.zipCode}}<br/>
+              {{address.street}} {{address.streetNumber}}<br/>
+              <div class="ui divider"></div>
+              {{description}}
+            </div>        
+            <div class="ui divider"></div>
+            <div class="ui horizontal label">
+              {{genre}}
+            </div>  
+          </div>
+          <div class="ui two bottom attached buttons">
+            <div class="ui labeled green icon button ">
+              <i class="icon add"></i>
+              Join
+            </div>            
+            <div class="ui right labeled red icon button ">
+              <i class="icon cancel"></i>
+              cancel
+            </div>
+          </div>        
+      </div>
+      {{/with}}
+    
+
+</template>
+
+<template name="eventItem">
+
+  <div class="ui fluid card">
+    
+    <img class="ui medium left floated image" src="http://susancorso.com/seedsforsanctuary/wp-content/uploads/2013/04/box_placeholder.jpg"/>
+
+    <div class="content">
+      <div class="header">
+        <a>{{name}}</a>
+        <span class="right floated meta time">{{formatTime date "simple"}}</span>
+      </div>
+      {{#if currentUser}}
+      <a class="right floated inverted autor">
+        <img class="ui avatar image" src="{{quickInfo 'avatar' user}}" />
+        {{quickInfo 'username' user}}
+      </a>
+      {{/if}}
+      <div class="meta">        
+        <span class="cinema">{{address.city}}</span>
+      </div>
+      <div class="description">
+        {{description}}          
+      </div>      
+      <div class="ui horizontal label">
+        {{genre}}
+      </div>
+    </div>
+    <div class="extra content">
+      <div class="ui {{particpateIf _id 'red' 'green'}} button participate"  >
+        {{particpateIf _id 'Absagen' 'Zusagen'}}
+        <i class="right add icon"></i>
+      </div>
+      <div class="ui right floated">
+        {{participants.length}} nehmen teil        
+      </div>
+    </div>
+  </div>  
+
+</template>

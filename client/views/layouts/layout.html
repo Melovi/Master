@@ -1,0 +1,28 @@
+<template name="layout">
+    {{> header}}
+    
+    {{> settings}}
+    
+    {{> overlayHandler}}
+    <div class="pusher">
+        <div class="ui centered grid bodyContainer">
+        	
+            {{#if isDesktop}}
+        	<div class="twelve wide column">
+                <div class="ui segment">
+        	
+            	    {{> yield}}
+                </div>
+    		</div>
+            {{else}}
+            <div class="sixteen wide column">
+                <div class="ui segment">
+                    {{> yield}}
+                </div>
+            </div>
+            {{/if}}		
+	   </div>
+    </div>
+    {{> radio}}
+    
+</template>
