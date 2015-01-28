@@ -106,7 +106,7 @@ Clips.attachSchema(ClipSchema);
 
 VideoClips = new FS.Collection("VideoClips", {
   stores: [
-    new FS.Store.FileSystem("UserClips", {path: "~/uploads/clips"})
+    new FS.Store.FileSystem("UserClips", {path: myUploadDir + "/uploads/clips"})
 
   ]
 });

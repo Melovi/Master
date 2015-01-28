@@ -8,8 +8,6 @@ Session.set("currentPlayer", 1);
 Session.set("playlistActive", false);
 Session.set("audioCurrentTime", 0);
 
-BpmTracker = new BpmTracker;
-
 Template.radio.helpers({
 
 	collectionsReady:function(){
@@ -25,12 +23,12 @@ Template.radio.helpers({
     	
     },
     audio:function(){
-    	audio = videos.findOne({_id:Session.get("playlist")[Session.get("queue")]});
+    	audio = videos.findOne({_id:Session.get("playlist")[Session.get("queue")]});    	
 
     	if(audio){
     		Session.set("currentVideo", audio._id);
-    		Session.set("currentBpm", audio.bpm);
-    		BpmTracker.setup(audio.bpm, clips);
+
+			bpmTracker.setup(audio.bpm);
     	}
     	
     	
@@ -143,157 +141,8 @@ Template.radio.events({
 });
 
 
-function BpmTracker(){
 
-	var beatsPerSecond;
-	var beatsPerMiliSecond;
-	var currentBeat = 0;
-	var correctAtBeat = 15;
-	var audio;
-	var tracker;
-	var pause;
-	var interval;
-	var correction = false;
-	var myClips;
-
-	Cliploader = new Cliploader();
-
-
-	this.setup = function(bpm, clps){
-
-		beatsPerSecond = bpm/60;
-		beatsPerMiliSecond = beatsPerSecond * 1000;
-		interval = beatsPerMiliSecond;
-		myClips = clps;
-		//console.log(myClips);
-		var clipUrls = [];
-		myClips.forEach(function(value){
-
-			clipUrls.push(value.url);
-		});
-		Cliploader.setup(clipUrls);
-	}	
-
-	this.activate = function(aud){
-
-		audio = aud;		
-		startTracker(interval);
-
-	}
-
-	this.pause = function(){
-
-		clearInterval(tracker);
-		interval = audio.currentTime - currentBeat*beatsPerSecond;
-		console.log("Interval after Pause " + interval);
-		correction = true;
-		
-	}
-	
-	this.reset = function(){
-
-		clearInterval(tracker);
-
-	}
-
-	function startTracker(timeInterval){
-
-		if(correction){
-
-			tracker = setInterval(function(){
-
-				console.log(audio.currentTime);
-				currentBeat++;
-				cyclePlayer();
-				correction = false;
-				clearInterval(tracker);
-				startTracker(beatsPerMiliSecond);
-
-			}, timeInterval);
-
-		} else {
-
-			tracker = setInterval(function(){
-
-				if(currentBeat % correctAtBeat == 0 || currentBeat == 0){
-
-					//console.log("went into correction test");
-					correctBeat(audio.currentTime);
-
-				} else{
-
-					console.log(audio.currentTime);					
-					currentBeat++;
-					cyclePlayer();
-					
-					//console.log("Current Beat " + currentBeat);				
-				}			
-
-		}, timeInterval);
-
-		}
-
-		
-	}
-
-	function correctBeat(timelog){
-
-		var supposed = beatsPerSecond * (currentBeat+1);
-		var actual = timelog;
-
-		if(Math.abs(supposed - actual) > 0.1){
-
-			//console.log("correcting");
-			correction = true;
-
-			if(supposed > actual){
-				interval = (supposed - actual) * 1000;
-			} else {
-				intveral = (Math.abs(supposed - actual)) * 1000;
-			}
-
-			//console.log("Correctional Interval " + interval);
-			clearInterval(tracker);
-			startTracker(interval);
-
-		} else{
-
-			//console.log("no correction");
-			currentBeat++;
-			cyclePlayer();
-			
-		}
-
-	}
-
-	function cyclePlayer(){
-
-		currentPlayer = Session.get("currentPlayer");
-
-		//console.log("Current clip: " + Cliploader.cClip);
-
-		//console.log("clips: " + myClips.length);
-
-		if(Cliploader.cClip < myClips.length){
-
-			if(currentPlayer < 3){
-
-				Session.set("currentPlayer", currentPlayer+1);
-			} else {
-
-				Session.set("currentPlayer", 1);
-			}
-
-			Cliploader.nextClip();
-		} else{
-
-			//console.log("no more");
-		}
-		
-	}
-
-}
-
+/*
 function Cliploader(){
 
 	var clipUrls;
@@ -335,7 +184,7 @@ function Cliploader(){
 	}	
 	
 }
-
+*/
 
 
 

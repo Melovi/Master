@@ -7,7 +7,7 @@
 			{{#with firstPlayer}}
 			<div class="column">
 				<h5 class="header">Player 1</h5>
-					{{title}} 					
+					{{title}} - start: {{startPosition}} | end {{endPosition}} | duration: {{duration}}
 									
 					<video id="player_1" class="{{_id}}" width="200" height="110" src="{{this.url}}" loop>					
 						{{playMe startPosition endPosition _id}}
@@ -18,8 +18,8 @@
 			{{/with}}
 			{{#with secondPlayer}}
 			<div class="column">
-				<h5 class="header">Player 1</h5>
-					{{title}} 					
+				<h5 class="header">Player 2</h5>
+					{{title}} - start: {{startPosition}} | end {{endPosition}}					
 									
 					<video id="player_2" class="{{_id}}" width="200" height="110" src="{{this.url}}" loop>					
 						{{playMe startPosition endPosition _id}}
@@ -31,7 +31,7 @@
 			{{#with thirdPlayer}}
 			<div class="column">
 				<h5 class="header">Player 1</h5>
-					{{title}} 					
+					{{title}} - start: {{startPosition}} | end {{endPosition}}					
 									
 					<video id="player_3" class="{{_id}}" width="200" height="110" src="{{this.url}}" loop>					
 						{{playMe startPosition endPosition _id}}

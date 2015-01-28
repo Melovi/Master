@@ -27,9 +27,7 @@ Template.videomod.events({
 	},
 	'click .playSong':function(event){
 
-		var myPlaylist = [];
-
-		myPlaylist.push(this._id);
+		var myPlaylist = [this._id];
 
 		Session.set("isPlaying", false);
 		Session.set("playlist", myPlaylist);

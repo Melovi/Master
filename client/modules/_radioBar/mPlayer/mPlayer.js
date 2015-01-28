@@ -4,13 +4,22 @@ Session.set("secondPlayerClip", 1);
 Session.set("thirdPlayerClip", 2);
 Session.set("clipQueue", []);
 
+Template.mPlayer.rendered = function(){
+
+	dothis = function(data){
+
+		console.log(data.beat);
+	}
+
+	Event.on("cycle", dothis);
+}
 
 Template.mPlayer.helpers({
 	queue:function(){
 
 		console.log("this video ID: " + this._id);
 
-		return makeFsQueue(120, this._id);
+		return makeFsQueue(this.bpm, this._id);
 
 	},
 
@@ -23,7 +32,7 @@ Template.mPlayer.helpers({
 		var inbetween = currentTime > start && currentTime < end;
 		//console.log(inbetween);
 		
-		
+		if(clip){
 			if(clip.paused && inbetween){
 				console.log("play clip " + id);
 				clip.play();
@@ -60,6 +69,7 @@ Template.mPlayer.helpers({
 				clip.pause();
 				playing = false;
 			}
+		}
 	},
 
 
@@ -137,17 +147,18 @@ function makeFsQueue(bpm, videoId){
 
 	var beat = (bpm/60);
 	var queue = [];
+	var durationLimit = beat;
 
 	for(var i = 0; i < 200; i += beat){
 
 		var j = i+beat;
 		//console.log("beat  " + i);
-		console.log("Checke ob größer als --" + i + "-- und kleiner als --" + j);
+		//console.log("Checke ob größer als --" + i + "-- und kleiner als --" + j);
 		var meta = Clips.findOne(
-			{"videoId": videoId, "startPosition": {"$gte": i, '$lte': j}}, 
+			{"videoId": videoId, "startPosition": {"$gte": i, '$lte': j}, "duration": {"$gte": durationLimit}}, 
 			{sort: {"startPosition": 1, "createdAt": -1}}
 			);
-		console.log(meta);
+		//console.log(meta);
 		if(meta && "clipRef" in meta){
 			console.log("gefunden");
 			var clipRef = meta.clipRef;
@@ -155,7 +166,7 @@ function makeFsQueue(bpm, videoId){
 			//console.log(clipRef);
 			var clip = VideoClips.findOne({"_id": clipRef});
 			//console.log("Clip: ");
-			console.log(clip)		
+			//console.log(clip)		
 
 			if(clip){
 				//console.log("pushing clip");

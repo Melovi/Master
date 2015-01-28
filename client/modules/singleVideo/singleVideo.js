@@ -15,11 +15,12 @@ Template.singleVideo.events({
 	},
 	'click .playSong':function(event){
 
-		var myPlaylist = [];
+		var myPlaylist = [this._id];
 
-		myPlaylist.push(this._id);
-
+		Session.set("isPlaying", false);
 		Session.set("playlist", myPlaylist);
+
+		Meteor.setTimeout(function(){console.log("Waiting"); playAudio()}, 50);
 	},
 	'click .favorite':function(event, template){
 

@@ -33,3 +33,4 @@ jameslefrere:autoform-semantic-ui
 cfs:standard-packages
 cfs:filesystem
 multiply:iron-router-progress
+raix:eventemitter

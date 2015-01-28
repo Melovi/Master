@@ -1,0 +1,37 @@
+{
+  "name": "melovi",
+  "version": "0.8.1",
+  "description": "An Automatic MusicVideo generator App",
+  "author": "Alex Junge <sopj87@gmail.com>",
+  "contributors": [{
+  "name": "Marcel Giehler",
+  "email": "doppelherz@gmail.com"
+}],
+  "bin": {
+  "meteor": ".meteor"
+},
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/Melovi/Master"
+},
+  "bugs": {
+  "url": "https://github.com/Melovi/Master/issues"
+},
+  "keywords": [
+  "Melovi",
+  "MusicVideo"
+],
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  },
+  "preferGlobal": true,
+  "private": true,
+  "publishConfig": {
+  "registry": "https://melovi.herokuapps.com"
+},
+  "analyze": true,
+  "license": "MIT"
+}
