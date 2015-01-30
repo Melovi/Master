@@ -1,4 +1,3 @@
-.idea/*
-.uploads/*
-.private/cli/mup/settings.json
+uploads/*
+private/cli/mup/settings.json
 
