@@ -83,10 +83,26 @@
 						{{> afFieldInput name="description" id="songDescription" rows=6 placeholder="Beschreibung"}}						
 					</div>
 					<div class="four fields">
-
+						
 						<div class="field {{#if afFieldIsInvalid name='location' }}error{{/if}}">
-							<label>Location</label>											
-							{{> afFieldInput name="location" id="songLocation" options=locationOptions }}								
+							<label>Location</label>
+							<div class="ui search selection dropdown">
+								
+								{{> afFieldInput type="hidden" name="location" id="songLocation" value="currentUser.profile.location"}}
+								<div class="default text">
+									{{#if currentUser.profile.location}}
+					        			{{currentUser.profile.location}}
+					        		{{else}}
+					        			City
+					        		{{/if}}
+								</div>
+								<i class="dropdown icon"></i>
+								<div class="menu">
+									{{#each locations}}
+										<div class="item" data-value="{{name}}">{{name}}</div>
+									{{/each}}
+								</div>
+							</div>
 						</div>
 
 						<div class="field {{#if afFieldIsInvalid name='genre' }}error{{/if}}">

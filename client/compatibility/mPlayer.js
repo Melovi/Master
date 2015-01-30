@@ -157,7 +157,7 @@ function BpmTracker(){
 
 			tracker = setInterval(function(){
 
-				console.log(audio.currentTime);
+				//console.log(audio.currentTime);
 				currentBeat++;
 				cyclePlayer();
 				correction = false;
@@ -177,7 +177,7 @@ function BpmTracker(){
 
 				} else{
 
-					console.log(audio.currentTime);					
+					//console.log(audio.currentTime);					
 					currentBeat++;
 					cyclePlayer();
 					
@@ -223,8 +223,10 @@ function BpmTracker(){
 
 	function cyclePlayer(){
 
-		Event.emit("cycle",{
-			beat: currentBeat
+		Event.emit("beat",{
+			beat: currentBeat,
+			time: audio.currentTime,
+			next: audio.currentTime + beatsPerSecond
 		});
 
 		//currentPlayer = Session.get("currentPlayer");

@@ -1,47 +1,41 @@
 <template name="mPlayer">
 
-	<h3 class="header">Alle Videos</h3>
-	<div class="ui stackable three column grid">
-		{{#if queue}}
-			<h3 class="header">Nach Filter kommen in Frage</h3>
+		{{#if queue}}			
 			{{#with firstPlayer}}
-			<div class="column">
-				<h5 class="header">Player 1</h5>
-					{{title}} - start: {{startPosition}} | end {{endPosition}} | duration: {{duration}}
-									
-					<video id="player_1" class="{{_id}}" width="200" height="110" src="{{this.url}}" loop>					
+															
+					<video id="player_1" class="ui image {{_id}}" src="{{this.url}}" preload loop style="display: none">					
 						{{playMe startPosition endPosition _id}}
 						
-					</video>				
+					</video>
+
+					<p>{{title}} - Start: {{startPosition}} - End: {{endPosition}}</p>		
 				
-			</div>
+			
 			{{/with}}
 			{{#with secondPlayer}}
-			<div class="column">
-				<h5 class="header">Player 2</h5>
-					{{title}} - start: {{startPosition}} | end {{endPosition}}					
-									
-					<video id="player_2" class="{{_id}}" width="200" height="110" src="{{this.url}}" loop>					
+							<video id="player_2" class="ui image {{_id}}" src="{{this.url}}" preload loop style="display: none">					
 						{{playMe startPosition endPosition _id}}
 						
 					</video>				
 				
-			</div>
+					<p>{{title}} - Start: {{startPosition}} - End: {{endPosition}}</p>		
 			{{/with}}
 			{{#with thirdPlayer}}
-			<div class="column">
-				<h5 class="header">Player 1</h5>
-					{{title}} - start: {{startPosition}} | end {{endPosition}}					
-									
-					<video id="player_3" class="{{_id}}" width="200" height="110" src="{{this.url}}" loop>					
+			
+					<video id="player_3" class="ui image {{_id}}" src="{{this.url}}" preload loop style="display: none">					
 						{{playMe startPosition endPosition _id}}
 						
 					</video>				
-				
-			</div>
+					
+					<p>{{title}} - Start: {{startPosition}} - End: {{endPosition}}</p>		
+		
 			{{/with}}
+
+		
+				<img id="videoPlaceHolder" class="hidden" src="http://flipbook.fmwinc.com/proofs/A/ARN/79997/images/forplacementonly/placeholder-16-9.jpg">
+		
 		{{/if}}
-	</div>
+	
 
 	
 

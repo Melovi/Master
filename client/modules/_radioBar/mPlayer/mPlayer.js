@@ -3,21 +3,31 @@ Session.set("firstPlayerClip", 0);
 Session.set("secondPlayerClip", 1);
 Session.set("thirdPlayerClip", 2);
 Session.set("clipQueue", []);
+Session.set("beats", []);
+var placeholder;
 
 Template.mPlayer.rendered = function(){
 
-	dothis = function(data){
+	placeholder = $("#videoPlaceHolder");
+	$("#player_1").hide();
+	$("#player_2").hide();
+	$("#player_3").hide();
 
-		console.log(data.beat);
+	Event.on("beat", doit);
+
+	function doit(beat){
+
+		beat = [beat.time, beat.next];
+		console.log(beat);
+		Session.set("beats", beat);
 	}
 
-	Event.on("cycle", dothis);
 }
 
 Template.mPlayer.helpers({
 	queue:function(){
 
-		console.log("this video ID: " + this._id);
+		//console.log("this video ID: " + this._id);
 
 		return makeFsQueue(this.bpm, this._id);
 
@@ -26,49 +36,54 @@ Template.mPlayer.helpers({
 	playMe:function(start, end, id){
 		
 		//console.log("start function");
-		var clip = $("." + id).get(0);
+		var jClip = $("." + id);		
+		var clip = jClip.get(0);
+		var active;
 		var currentTime = Session.get("audioCurrentTime");
+		var beat = Session.get("beats");
 		//console.log(currentTime);
 		var inbetween = currentTime > start && currentTime < end;
 		//console.log(inbetween);
 		
 		if(clip){
 			if(clip.paused && inbetween){
-				console.log("play clip " + id);
-				clip.play();
-				playing = true;
-				console.log(playing);
 
+				console.log(clip);
+				console.log("play clip " + id + " at " + currentTime);
+				clip.play();		
+			
 			} 
 
-			if(!clip.paused && currentTime > end){
-				console.log("ending clip " + id);
-				
-				console.log(clip.id);
-				switch(clip.id){
+			if(!clip.paused){	
 
-					case "player_1":
-						console.log("doin smth");
-						var inc = Session.get("firstPlayerClip") + 3;
-						Session.set("firstPlayerClip", inc);
-						break;
+				if(beat[0] > start && jClip.css("display") == "none"){
 
-
-					case "player_2":
-						var inc = Session.get("secondPlayerClip") + 3;
-						Session.set("secondPlayerClip", inc);
-						break;
-
-
-					case "player_3":
-						var inc = Session.get("thirdPlayerClip") + 3;
-						Session.set("thirdPlayerClip", inc);
-						break;
-
+					console.log("Hide Placeholder show Video at " + currentTime);
+					placeholder.hide();
+					jClip.show();
+					active = true;
 				}
-				clip.pause();
-				playing = false;
-			}
+				
+				if(Math.abs(end - beat[0]) <= Math.abs(end - beat[1])){
+
+					//console.log(beat);
+					console.log("showing placeholder at " + currentTime);
+					placeholder.show();				
+					
+					jClip.hide();
+					active = false;			
+					
+				}
+
+				if(active === false && currentTime > end){
+
+					
+					loadClips(clip.id, jClip);
+					clip.pause();						
+
+				}	
+
+			}			
 		}
 	},
 
@@ -118,30 +133,6 @@ Template.mPlayer.helpers({
 
 });
 
-function makeQueue(bpm, videoId){
-
-	var beat = 2*(bpm/60);
-	var queue = [];
-
-	for(var i = 0; i < 200; i += beat){
-
-		var j = i+beat;
-		//console.log("beat  " + i);
-		var meta = Clips.findOne({"videoId": videoId, "startPosition": {'$lt': j, "$gt": i}}, {sort: {"startPosition": 1}});
-		
-
-		if(meta){
-			//console.log("pushing clip");
-			queue.push(meta);
-		}
-		
-	}
-
-	//console.log(queue);
-
-	return queue;
-
-}
 
 function makeFsQueue(bpm, videoId){
 
@@ -160,7 +151,7 @@ function makeFsQueue(bpm, videoId){
 			);
 		//console.log(meta);
 		if(meta && "clipRef" in meta){
-			console.log("gefunden");
+			//console.log("gefunden");
 			var clipRef = meta.clipRef;
 			//console.log("Reference");
 			//console.log(clipRef);
@@ -176,12 +167,49 @@ function makeFsQueue(bpm, videoId){
 		
 	}
 
-	console.log(queue);
+	//console.log(queue);
 
 	Session.set("clipQueue", queue);
 
 	//handler noch einbauen um zu checken ob alles funktioniert hat
 
 	return true;
+
+}
+/*
+Event.on("beat", function(beat){
+					if(end - beat.time <= end - beat.next){
+
+						console.log("time to switch");
+					}
+				})
+
+
+	*/
+
+function loadClips(id, jClip){
+	switch(id){
+
+		case "player_1":							
+			var inc = Session.get("firstPlayerClip") + 3;
+			Session.set("firstPlayerClip", inc);
+			jClip.hide();
+			break;
+
+
+		case "player_2":
+			var inc = Session.get("secondPlayerClip") + 3;
+			Session.set("secondPlayerClip", inc);
+			jClip.hide();
+			break;
+
+
+		case "player_3":
+			var inc = Session.get("thirdPlayerClip") + 3;
+			Session.set("thirdPlayerClip", inc);
+			jClip.hide();
+			break;
+
+	}
 
 }

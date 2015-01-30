@@ -6,6 +6,11 @@ Session.set("invalidInput", false);
 var vForm = "insertVideoForm";
 var idArr = ["source", "title", "subtitle", "location", "description", "genre", "bpm", "tags" ];
 
+Template.addVideo.rendered = function(){
+
+	$(".ui.dropdown").dropdown()
+};
+
 
 Template.addVideo.helpers({	
 
@@ -31,10 +36,11 @@ Template.addVideo.helpers({
 			return {fieldName: c}
 		});
 	},
-	locationOptions:function(){
-		return Locations.find().map(function(c){
-			return {label: c.name, value: c.name}; 
-		});
+	locations:function(){
+
+		var locations = Locations.find();
+
+		return locations;
 	},
 	genreOptions:function(){
 
@@ -138,7 +144,7 @@ function checkFormStatus(event, template){
 		fileInfo.user = Meteor.userId();
 		fileInfo.title = template.find("#songTitle").value;
 		fileInfo.subtitle = template.find("#songSubtitle").value;
-		fileInfo.genre = template.find("#songGenre").value;
+		fileInfo.genre = [template.find("#songGenre").value];
 		fileInfo.location = template.find("#songLocation").value;
 		fileInfo.description = template.find("#songDescription").value;
 		fileInfo.bpm = template.find("#songBpm").value;
@@ -159,6 +165,7 @@ function checkFormStatus(event, template){
 function validateAllFields(form, idArr){
 
 	var bool = true;
+	console.log(idArr);
 
 	idArr.forEach(function(value){
 
