@@ -1,8 +1,0 @@
-{
-  "public": {
-
-  },
-  "env": {
-  	"MONGO_URL": "mongodb://Melovi:Musik_Erleben@ds051977.mongolab.com:51977/melovi_db"
-  }
-}
