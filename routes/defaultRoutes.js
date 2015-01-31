@@ -1,7 +1,8 @@
 var IR_BeforHooks = {
   isLoggedIn: function(){
     if(!(Meteor.loggingIn() || Meteor.user())){
-      this.render("loginBar");
+      Session.set("overlayHandler", "loginBar");
+      this.next();
     } else {
       this.next();
     }
@@ -60,15 +61,30 @@ Router.route('addVideo',{
 //-------------------------------------------------------------
 // Home Route
 Router.route('home', {
-  path:'home'
+  path:'home',
+  data: function(){
+    return {navi: settingsNavi}
+  }
 });
 
-/*
-Router.route("settings", {
-  waitOn:function(){
-    return Meteor.subscribe("Locations")
-  }
-})*/
+Router.route("landingpage", {
+  path: "/",
+  layoutTemplate: "landingpage",
+  onBeforeAction: function(){
+    if(!Meteor.user()){
+      if(Meteor.loggingIn()){
+        this.next();
+      } else{        
+        this.next();
+      }                  
+    } else {
+
+      Router.go("home");
+      this.next();
+    }
+  },
+  progess: false
+})
 
 // Videos Route
 Router.route('videos', {

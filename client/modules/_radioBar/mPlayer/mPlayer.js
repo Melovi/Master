@@ -35,6 +35,7 @@ Template.mPlayer.helpers({
 
 	playMe:function(start, end, id){
 		
+		
 		//console.log("start function");
 		var jClip = $("." + id);		
 		var clip = jClip.get(0);
@@ -42,32 +43,37 @@ Template.mPlayer.helpers({
 		var currentTime = Session.get("audioCurrentTime");
 		var beat = Session.get("beats");
 		//console.log(currentTime);
-		var inbetween = currentTime > start && currentTime < end;
+		var inbetweenPlay = currentTime > start && currentTime < end;
 		//console.log(inbetween);
+		var inbetweenBeat = (beat[0] +0.5) > start && (beat[0] - 1) < start;
 		
-		if(clip){
-			if(clip.paused && inbetween){
+		
 
-				console.log(clip);
+		if(clip){
+			if(clip.paused && inbetweenPlay){
+
+				console.log("Start: " + start + " -- End: " + end);		
 				console.log("play clip " + id + " at " + currentTime);
 				clip.play();		
 			
 			} 
 
-			if(!clip.paused){	
+			if(!clip.paused){
 
-				if(beat[0] > start && jClip.css("display") == "none"){
-
-					console.log("Hide Placeholder show Video at " + currentTime);
-					placeholder.hide();
-					jClip.show();
-					active = true;
+				if(inbetweenBeat && jClip.css("display") == "none"){
+					
+						console.log("The Clip is hidden");
+						console.log("--- Hide Placeholder show Video at " + currentTime);
+						placeholder.hide();
+						jClip.show();
+						active = true;
+										
 				}
 				
 				if(Math.abs(end - beat[0]) <= Math.abs(end - beat[1])){
 
 					//console.log(beat);
-					console.log("showing placeholder at " + currentTime);
+					console.log("--- showing placeholder at " + currentTime);
 					placeholder.show();				
 					
 					jClip.hide();

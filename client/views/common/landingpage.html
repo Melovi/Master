@@ -1,0 +1,127 @@
+<template name="landingpage">
+	<div id="landingpage">
+
+
+		<div class="ui top inverted menu myNav">
+			<a class="right floated item navLogin">Login</a>
+			<a class="right floated item navRegister">Register</a>
+			
+		</div>
+
+		<div class="backgroundVid">
+			<video class="backgroundVid" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" autoplay loop muted>
+			</video>
+		</div>
+
+		<div id="topLogin" style="display:none">
+			{{> loginBar}}
+		</div>
+
+
+		<div class="landingLogo">
+			<div id="beforeLog">
+				<img src="/logo.png">
+				<div class="ui two buttons">
+					<button class="ui green button siteLogin">
+						Login
+					</button>				
+					<button class="ui blue button siteRegister">
+						Register
+					</button>
+				</div>
+				<div style="padding-top:20px">
+					<center><a href="{{pathFor 'home'}}">Einfach mal reinschnuppern</a></center>
+				</div>
+			</div>
+			<div class="ui form" id="afterLog" style="display:none">
+				<div class="field">
+					<label>Username oder Email</label>
+					<input id="username" type="text" placeholder="Username or Email">
+				</div>
+				<div class="field">
+					<label>Passwort</label>
+					<input id="password" type="password" placeholder="Passwort">
+				</div>
+				<div class="ui two buttons">
+					<div class="ui positive button login">
+						Login
+					</div>
+					<div class="ui basic red button back">
+						cancel
+					</div>
+				</div>
+			</div>
+			<div class="ui form" id="afterReg" style="display:none">
+				<div class="field">
+					<label>Username</label>
+					<input id="regUsername" type="text" placeholder="Username">
+				</div>
+				<div class="field">
+					<label>Email</label>
+					<input id="regEmail" type="text" placeholder="email">
+				</div>
+				<div class="field">
+					<label>Passwort</label>
+					<input id="regPassword" type="password" placeholder="Passwort">
+				</div>
+				<div class="field">
+					<label>Passwort wiederholen</label>
+					<input id="regPasswordConfirm" type="password" placeholder="Wiederholung">
+				</div>
+				<div class="ui two buttons">
+					<div class="ui blue button register">
+						Register
+					</div>
+					<div class="ui basic red button back">
+						cancel
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="gap">
+		</div>
+
+		<div class="ui segment">
+			<div class="ui items floater">
+				
+				<div class="item">
+					<div class="ui large image">
+						<img src="http://www.derme.com.br/wp-content/uploads/2011/01/placeholder.jpg">
+					</div>
+					<div class="content">
+						<h1 class="header">Was ist Melovi</h1>
+						<div class="description">
+							Lorem Ipsum
+						</div>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+				<div class="item">
+					<div class="ui large image">
+						<img src="http://www.derme.com.br/wp-content/uploads/2011/01/placeholder.jpg">
+					</div>
+					<div class="content">
+						<h1 class="header">Was ist Melovi</h1>
+						<div class="description">
+							Lorem Ipsum
+						</div>
+					</div>
+				</div>
+				<div class="ui divider"></div>
+				<div class="item">
+					<div class="ui large image">
+						<img src="http://www.derme.com.br/wp-content/uploads/2011/01/placeholder.jpg">
+					</div>
+					<div class="content">
+						<h1 class="header">Was ist Melovi</h1>
+						<div class="description">
+							Lorem Ipsum
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</div>
+</template>
+

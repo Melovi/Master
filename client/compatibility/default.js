@@ -96,3 +96,78 @@ function setOptionFields(obj, arrayElement){
 
 }
 
+
+function clientRegisterValidation(username, email, password, confirmPassword){
+
+  var validPassword;
+  var validEmail;
+  var validUsername;
+
+  var emailMessage;
+  var passwordMessage;
+  var usernameMessage;
+
+  var usernameRegex = /^[a-z0-9A-Z_\s]{3,15}$/
+  var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+
+  //Check if Username is taken or too Short 
+  if(username.length < 4){
+
+    validUsername = false;
+    usernameMessage = "Username zu kurz";
+  } else if(username.lenghth > 15){
+
+    validUsername = false;
+    usernameMessage = "Username zu lang";
+
+  } else if(Meteor.users.findOne({username: username})){
+
+    validUsername = false;
+    usernameMessage = "Username existiert bereits";
+
+  } else if(!usernameRegex.test(username)){
+
+    validUsername = false;
+    usernameMessage = "*** nicht erlaubt";
+
+  } else{
+
+    validUsername = true;
+    usernameMessage = "Username ist in Ordnung";
+  }
+
+  //Check the Email Address
+  if(!emailRegex.test(email)){
+
+    validEmail = false;
+    emailMessage = "Die Email Adresse ist fehlerhaft";
+  } else {
+
+    validEmail = true;
+    emailMessage = "Email Adresse ist in Ordnung";
+  }
+
+  //Check the Password
+  if(password.length <= 6){
+
+    validPassword = false;
+    passwordMessage = "Das Passwort ist zu kurz";
+  } else if(password != confirmPassword){
+
+    console.log(password);
+    console.log(confirmPassword);
+
+    validPassword = false;
+    passwordMessage = "Die Passwörter stimmen nicht überein";
+
+  } else if(password == confirmPassword && password.length > 6){
+
+    validPassword = true;
+    passwordMessage = "Das Passwort ist in Ordnung";
+  }
+
+  return {username: {valid: validUsername, message: usernameMessage}, email: {valid: validEmail, message: emailMessage}, password:{valid: validPassword, message: passwordMessage}};
+
+
+}

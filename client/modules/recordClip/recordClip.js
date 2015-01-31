@@ -42,7 +42,7 @@ Template.recordClip.events({
 				//console.log("doin smth");
 				hold += 100;
 
-				if(hold >= 4000){
+				if(hold >= 10000){
 
 					Session.set("isRecording", false);
 					Session.set("recordingComplete", true);

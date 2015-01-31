@@ -36,7 +36,18 @@
 
 			</a>
 			{{/each}}
-
+			<div class="ui divider"></div>
+			<div class="item">
+				{{#if currentUser}}
+				<div class="ui inverted basic red button logout">
+					Logout
+				</div>
+				{{else}}
+				<div class="ui inverted basic green button login">
+					Login
+				</div>
+				{{/if}}
+			</div>
 		{{/if}}
 	  	
 	</div>

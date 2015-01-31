@@ -8,7 +8,7 @@ Template.settings.helpers({
       return Session.get("showSettings");
     },
     navigationItems:function(){
-    	return navigationItems;
+    	return settingsNavi;
     },
     subNavigationItems:function(){
     	return subNavigationItems;
@@ -40,77 +40,31 @@ Template.settings.helpers({
 });
 
 Template.settings.events({
-	'click .overlay, click a':function(event, template){
-
-		Session.set("overlayHandler", "none");
-	},
+	
 	'click settingsProfileExtra':function(){
 
 		/*Funktion für den kleinen Button hier einfügen */
 		console.log("do something amazing");
+	},
+	"click .login":function(){
+
+		if(Session.get("overlayHandler") == "loginBar"){
+
+	       Session.set("overlayHandler", "none");
+	       console.log("changing to none");
+
+	      } else {
+	      	console.log("changing to login");
+	       Session.set("overlayHandler", "loginBar");
+
+	      }
+	},
+	"click .logout":function(){
+
+		Meteor.logout(function(){
+        alert("Ausgeloggt");
+      	});
+
 	}
 });
 
-
-var navigationItems = [
-	{
-		label: "Profil Einstellen",
-		icon: "edit",
-		path: "editProfile",
-		activeTemplate: "EditProfile"
-	},
-	{
-		label: "Video hinzufügen",
-		icon:"plus",
-		activeTemplate: "AddVideo",
-		path: "addVideo"
-	},
-	{
-		label: "Event hinzufügen",
-		icon: "cocktail",
-		activeTemplate: "AddEvent",
-		path: "addEvent"
-	},
-	{
-		label: "Ort einstellen" ,
-		icon:"marker",
-		path: "setLocation",
-		activeTemplate: "SetLocation"
-	},  
-	{
-		label: "Add Location",
-		icon:"location arrow",
-		path: "addLocation",
-		activeTemplate: "AddLocation"
-	},
-	{
-		label: "Genre hinzufügen",
-		icon:"",
-		path: "addGenre",
-		activeTemplate: "AddGenre"
-	},
-	{
-		label: "Bandprofil erstellen",
-		icon: "music",
-		path: "addInterpret",
-		activeTemplate: "AddInterpret"
-	}
-
-];
-
-var subNavigationItems = [
-	{
-		label: "Impressum",		
-		path: "impressum"
-	},
-	{
-		label: "Über Uns",
-		path: "aboutUs"
-	},
-	{
-		label: "Globale Einstellungen",		
-		path: "globalSettings"
-	},
-	
-
-];

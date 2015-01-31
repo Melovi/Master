@@ -55,47 +55,9 @@ Template.navigation.rendered = function(){
     'click #navLogout':function(){
 
       Meteor.logout(function(){
-        console.log("The User has been logged out!");
-      })
+        alert("Ausgeloggt");
+        });
     }
 
 });
 
-var navigationItems = [
-  {
-    path: 'home',
-    activeTemplate: 'Home',
-    icon: "home",
-    label: "Home"
-  },
-  {
-    path: "videos",
-    activeTemplate: "Videos",
-    icon: "video play",
-    label: "Videos" 
-  },
-  {
-    path: "discover",
-    activeTemplate: "Discover",
-    icon: "rocket",
-    label: "Entdecken"
-  },
-  {
-    path: "recordings",
-    activeTemplate: "Recordings",
-    icon: "video play outline",
-    label: "Aufnahmen"
-  },
-  {
-    path: "favorites",
-    activeTemplate: "Favorites",
-    icon: "empty star",
-    label: "Favoriten"
-  },
-  {
-    path: "events",
-    activeTemplate: "Events",
-    icon: "ticket",
-    label: "Veranstaltungen"
-  }
-]

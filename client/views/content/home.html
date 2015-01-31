@@ -1,15 +1,28 @@
 <template name="home">
 	
-	Some Stuff to personalize
+	<h1>Prototyp Funktionen für Melovi</h1>
+
+	<div class="ui divider">
+	</div>
+	<div class="ui stackable two column grid">
+		{{#each navi}}
+		<div class="column">
+			<div class="ui block header" style="min-height:80px">
+				
+				<i class="huge {{icon}} icon"></i>
+				<a class="content" href="{{pathFor path}}">
+					{{label}}
+					<div class="sub header">{{description}}</div>
+				</a>
+				
+			</div>		
+		</div>
+		{{/each}}
+	</div>
+
 
 </template>
 
-<template name="block">
-	<th>{{title}}</th>
-	<tr>
-		<td>{{text}}</td>
-	</tr>
-</template>
 
 
 
