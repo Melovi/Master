@@ -3,7 +3,8 @@ Session.set("currentGPS", null);
 Session.set("gpsRadius", 3);
 Session.set("locationPrompt", false);
 Session.set("overlayHandler", "none");
-Session.set("currentPlaylist", {title:"Some title", videos: []})
+Session.set("currentPlaylist", {title:"Some title", videos: []});
+Session.set("cameraActive", false);
 
 getNavigatorGeo();
 

@@ -15,7 +15,7 @@ var uploadDirectory;
 UserImages = new FS.Collection("UserImages", {
 
   stores: [
-    new FS.Store.FileSystem("UserImages", {path: myUploadDir + "/uploads/images"})
+    new FS.Store.FileSystem("UserImages", {path: "./uploads/images"})
 
   ],
   filter: {
