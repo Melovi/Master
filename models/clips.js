@@ -106,7 +106,10 @@ Clips.attachSchema(ClipSchema);
 
 VideoClips = new FS.Collection("VideoClips", {
   stores: [
-    new FS.Store.FileSystem("UserClips", {path: "./uploads/clips"})
+    new FS.Store.FileSystem("UserClips", {path: "./uploads/clips", chunkSize: 115720000})
 
-  ]
+  ],
+  filter:{
+    maxSize: 115728640
+  }
 });

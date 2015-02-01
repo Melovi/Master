@@ -19,8 +19,6 @@ Meteor.methods({
   },
   updateLikes:function(collection, docId){
 
-    check(collection, String);
-    check(docId, String);    
 
     if(! FavoriteNameMap[collection]){
 
@@ -31,7 +29,7 @@ Meteor.methods({
         if(FavoriteNameMap[collection].findOne({_id:docId, "lovs.users": this.userId})){         
           
           console.log("user found in " + collection + " .... removing"); 
-          check(arguments, Match.Any);              
+                     
 
           FavoriteNameMap[collection].update({_id: docId}, {$pull: {"lovs.users": this.userId}, $inc:{"lovs.count": -1}},function(err){
             if(err){
@@ -44,7 +42,7 @@ Meteor.methods({
         } else {          
 
           console.log("user not found in " + collection + " .... adding");
-          check(arguments, Match.Any);
+       
           
           FavoriteNameMap[collection].update({_id: docId}, {$push: {"lovs.users": this.userId}, $inc: {"lovs.count": 1}}, function(err){
             if(err){
@@ -65,5 +63,10 @@ Meteor.methods({
 
         console.log(err, fileObj);
       });
+    },
+
+    completeRecording:function(videoArr, callback){
+
+
     }
 })

@@ -2,8 +2,7 @@ Meteor.publish("discover", function (location) {
 	
 
 	try{
-		check(location, String);
-
+		
 		var arr = [
 			videos.find({location:location}),
 		  	UserEvents.find({"address.city":location}),

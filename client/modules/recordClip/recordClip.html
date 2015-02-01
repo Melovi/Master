@@ -117,12 +117,17 @@
 			<div class="ui centered grid">
 				<div class="eight wide column videoPrev">
 					<div class="ui segment">
-					
-						<video id="live_video" poster="http://flipbook.fmwinc.com/proofs/A/ARN/79997/images/forplacementonly/placeholder-16-9.jpg" autoplay>
-						</video>
-						{{hasCamera}}
+
+						{{#if isEncoding}}
+							<div class="ui large active loader" style="height:400px"></div>
+						{{else}}
+							<video id="live_video" autoplay width="640" height="480">
+							</video>
+							{{hasCamera}}
+						{{/if}}				
 						
-						<canvas style="display:none"></canvas>	
+						
+						<canvas id="canvas" style="display:none"></canvas>	
 					</div>
 				</div>
 			</div>

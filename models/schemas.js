@@ -337,7 +337,8 @@ UserSchema = new SimpleSchema({
     username: {
         type: String,
         regEx: /^[a-z0-9A-Z_\s]{3,15}$/,
-        denyUpdate: true 
+        denyUpdate: true,
+        optional:true
     },
     emails: {
         type: [Object],

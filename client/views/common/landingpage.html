@@ -4,7 +4,7 @@
 
 		<div class="ui top inverted menu myNav">
 			<a class="right floated item navLogin">Login</a>
-			<a class="right floated item navRegister">Register</a>
+			<a class="right floated item navRegister">Registrieren</a>
 			
 		</div>
 
@@ -26,9 +26,15 @@
 						Login
 					</button>				
 					<button class="ui blue button siteRegister">
-						Register
+						Registrieren
 					</button>
 				</div>
+				<div class="ui horizontal divider">
+					<div class="or">oder</div>
+				</div>
+					<center><p>Einloggen mit</p></center>
+					<br/>
+					{{> socialButtons}}				
 				<div style="padding-top:20px">
 					<center><a href="{{pathFor 'home'}}">Einfach mal reinschnuppern</a></center>
 				</div>

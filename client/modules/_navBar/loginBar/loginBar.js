@@ -20,27 +20,7 @@ Template.loginBar.helpers({
 
 Template.loginBar.events({
 
-	"click #loginBarFacebookButton": function(event, template){
-        event.preventDefault();
-        Meteor.loginWithFacebook({ requestermissons: ['email']}, function (err) {
-            if (err){
-                return console.log(err);
-            }
-        });
-        return false;
-    },
-
-    "click #loginBarGooglePlusButton": function(event, template){
-        event.preventDefault();
-        Meteor.loginWithGoogle();
-        return false;
-    },
-
-    "click #loginBarTwitterButton": function(event, template){
-        event.preventDefault();
-        Meteor.loginWithTwitter();
-        return false;
-    },
+	
     "click #loginBarRegister":function(event, template){
 
     	event.preventDefault();
@@ -131,3 +111,44 @@ Template.loginBar.events({
 	    
 	}
 });
+
+
+Template.socialButtons.events({
+		"click .facebookButton": function(event, template){
+	        event.preventDefault();
+	        Meteor.loginWithFacebook({ requestPermissons: ['email']}, function (err) {
+	            if (err){
+	                return console.log(err);
+	            } else {
+	            	alert("Mit facebook eingeloggt")
+	            }
+	        });
+	      
+	    },
+
+	    "click .googlePlusButton": function(event, template){
+	        event.preventDefault();
+	        Meteor.loginWithGoogle({ requestPermissions: ["email"]}, function(err){
+
+	        	if(err){
+	        		return console.log(err);
+	        	} else {
+	            	alert("Mit Google+ eingeloggt")
+	            }
+	        });
+
+	    },
+
+	    "click .twitterButton": function(event, template){
+	        event.preventDefault();
+	        Meteor.loginWithTwitter(function(err){
+
+	        	if(err){
+	        		return console.log(err);
+	        	} else {
+	            	alert("Mit Twitter eingeloggt")
+	            }
+	        });
+
+	    }
+})

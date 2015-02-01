@@ -140,7 +140,7 @@ function checkFormStatus(event, template){
 		Session.set("metaComplete", true);
 		fileInfo = Session.get("newVideo");
 		fileInfo.source = template.find("#songSource").value;
-		fileInfo.interpret = Meteor.user().username;
+		fileInfo.interpret = Meteor.user().username || "unknown interpret";
 		fileInfo.user = Meteor.userId();
 		fileInfo.title = template.find("#songTitle").value;
 		fileInfo.subtitle = template.find("#songSubtitle").value;

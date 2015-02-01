@@ -78,8 +78,7 @@ if (Meteor.isServer) {
       } else if(_.contains(fields, "clips") || _.contains(fields, "views")){
 
           console.log("another user modifing");
-          console.log("Checking...");          
-          check(arguments, Match.Any);
+         
 
           if(fields[0] == "views"){
 
@@ -152,19 +151,24 @@ if (Meteor.isServer) {
   VideoClips.allow({
     insert:function(userId){
 
-      check(arguments, Match.Any);
+      
 
       return userId;
     },
     update: function(){
 
+     
       return true;
     },
     remove:function(){
 
+      
+
       return true;
     },
     download:function(){
+
+      
 
       return true;
     }
@@ -194,7 +198,7 @@ if (Meteor.isServer) {
       console.log(fields);
       console.log(modifier);
 
-      check(arguments, Match.Any)
+      
 
       return false;
     }
@@ -207,7 +211,7 @@ if (Meteor.isServer) {
     },
     update: function(userId, doc){
 
-      check(arguments, Match.Any);
+      
 
       return userId == doc._id;
     },
@@ -241,8 +245,7 @@ if (Meteor.isServer) {
     },
     update:function(userId, doc, fields, modifier){
 
-      check(arguments, Match.Any);
-
+      
       if(fields[0] == "lovs"){
 
         return userId;
@@ -265,8 +268,7 @@ if (Meteor.isServer) {
     },
     update: function(userId, doc, fields, modifier){
 
-      check(arguments, Match.Any);
-
+      
       if(fields[0] == "participants"){
 
         return userId;
@@ -283,14 +285,12 @@ if (Meteor.isServer) {
   UserImages.allow({
     insert:function(userId, docs){
 
-      check(arguments, Match.Any);
-
+     
       return true;
     },
     update:function(userId, docs, fields, modifier){
 
-      check(arguments, Match.Any);
-        
+     
       return true;
     },
     remove:function(userId){
@@ -304,13 +304,13 @@ if (Meteor.isServer) {
   Playlists.allow({
     insert:function(userId, doc){
 
-      check(arguments, Match.Any);
+     
 
       return userId;
     },
     update:function(userId, doc, fields, modifier){
 
-      check(arguments, Match.Any);
+   
 
       console.log("doing smth");
       console.log(fields);

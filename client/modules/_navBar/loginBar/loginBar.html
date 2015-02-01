@@ -29,11 +29,15 @@
 							<i class="sign in icon"></i>
 						</button>
 					</form>
+				
 				</div>
+				<div class="ui horizontal divider"><div class="or">login mit</div></div>
+					{{> socialButtons}}
+
 				<div class="ui horizontal divider">
-					OR
+					oder
 				</div>
-				<button id="loginBarRegister" class="ui blue fluid labeled icon button">Register <i class="signup icon"></i></button>
+				<button id="loginBarRegister" class="ui blue fluid labeled icon button">Registrieren<i class="signup icon"></i></button>
 			</div>
 		{{else}}
 			<div id="registerBar" class="ui left aligned basic fitted segment">
@@ -86,4 +90,18 @@
 			</div>
 		{{/if}}
 	</div>
+</template>
+
+<template name="socialButtons">
+	<center>
+		<div class="ui circular facebook icon button facebookButton">
+			<i class="facebook icon"></i>
+		</div>
+		<div class="ui circular google plus icon button googlePlusButton">
+			<i class="google plus icon"></i>
+		</div>
+		<div class="ui circular twitter icon button twitterButton">
+			<i class="twitter icon"></i>
+		</div>
+	</center>
 </template>

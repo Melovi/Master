@@ -45,13 +45,13 @@ Template.mPlayer.helpers({
 		//console.log(currentTime);
 		var inbetweenPlay = currentTime > start && currentTime < end;
 		//console.log(inbetween);
-		var inbetweenBeat = (beat[0] +0.5) > start && (beat[0] - 1) < start;
+		var inbetweenBeat = (beat[0] +1) > start && (beat[0] - 1) < start;
 		
 		
 
 		if(clip){
 			if(clip.paused && inbetweenPlay){
-
+				console.log("The Clip is inbetween it: " + inbetweenBeat);
 				console.log("Start: " + start + " -- End: " + end);		
 				console.log("play clip " + id + " at " + currentTime);
 				clip.play();		

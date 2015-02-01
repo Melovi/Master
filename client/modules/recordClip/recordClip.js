@@ -11,6 +11,7 @@ Session.set("isRecording", false);
 Session.set("recordingComplete", false);
 Session.set("editPositions", {position: 50, start: 0.1, end: 100});
 Session.set("activeCamera", false);
+Session.set("isEncoding", false);
 
 
 Template.recordClip.helpers({
@@ -54,39 +55,39 @@ Template.recordClip.events({
 				Session.set("activeCamera", true);
 			})
 
-			if(!Session.get("isRecording")){
+				
+		} else if(!Session.get("isRecording")){
 
-				startRecording();
-			
-				start = $("#mainAudio")[0].currentTime;				
+			startRecording();
+		
+			start = $("#mainAudio")[0].currentTime;				
 
-				t = setInterval(function(){
+			t = setInterval(function(){
 
-					//console.log("doin smth");
-					hold += 100;
+				//console.log("doin smth");
+				hold += 100;
 
-					if(hold >= 10000){
+				if(hold >= 8000){
 
-						Session.set("isRecording", false);
-						Session.set("recordingComplete", true);
-						completeRecording();
-						$( "#clipControls" ).show( "slow", function() {
-						    console.log("animation complete");
-						  });
+					Session.set("isRecording", false);
+					Session.set("recordingComplete", true);
+					recording = false;
+					$( "#clipControls" ).show( "slow", function() {
+					    console.log("animation complete");
+					  });
 
-						clearInterval(t);
-					}
+					clearInterval(t);
+				}
 
-				}, 100);
+			}, 100);
 
-			} else {
+		} else {
 
-				Session.set("isRecording", false);
-				Session.set("recordingComplete", true);
-				completeRecording();
-				clearInterval(t);
-			}			
-		}
+			Session.set("isRecording", false);
+			Session.set("recordingComplete", true);
+			recording = false;
+			clearInterval(t);
+		}		
 		
 
 		/*if(!Session.get("isRecording")){			
@@ -342,10 +343,6 @@ Template.camera.rendered = function(){
 
 	localMediaStream = null;
 
-	video = this.find("#live_video");
-	canvas = this.find("canvas");
-	context = canvas.getContext("2d");
-
 }
 
 Template.camera.helpers({
@@ -356,11 +353,21 @@ Template.camera.helpers({
 
 			console.log("doin smth");
 
-		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
-		navigator.getUserMedia({video:true, audio: false}, success, errorCallback);
+			navigator.getUserMedia({video:true, audio: false}, success, errorCallback);
+
+
+			video = $("#live_video")[0];
+			canvas = $("#canvas")[0];
+			context = canvas.getContext("2d");
+
 
 		}
+	},
+	isEncoding:function(){
+
+		return Session.get("isEncoding");
 	}
 });
 
@@ -372,6 +379,8 @@ Template.camera.events({
 		$("#camera").slideUp("slow",function(){
 			Session.set("activeCamera", false);
 		});
+
+		localMediaStream.stop();
 	}
 
 })
@@ -380,9 +389,9 @@ var errorCallback = function(err){
 	console.log(err);
 	alert("Es gab ein Problem mit dem Steam. Bitte überprüfen ob die Kamera angeschlossen ist oder der Zugriff im Browser angenommen wurde.");
 	
-	$("#camera").slideUp("slow",function(){
+	/*$("#camera").slideUp("slow",function(){
 		Session.set("activeCamera", false);
-	});
+	});*/
 }
 
 function fallback(err){
@@ -392,7 +401,12 @@ function fallback(err){
 
 function success(stream){
 
+	console.log(video);
+	console.log(canvas);
+	console.log(context);
+
 	video.src = window.URL.createObjectURL(stream);
+	
 	localMediaStream = stream;
 
 	video.onloadedmetadata = function(){
@@ -407,7 +421,7 @@ function startRecording(){
 	Session.set("isRecording", true);
 
 	canvas.width = video.width;
-	canvase.height = video.height;
+	canvas.height = video.height;
 
 	recording = true;
 	frameTime = new Date().getTime();
@@ -416,8 +430,9 @@ function startRecording(){
 
 function recordFrame(){
 	if(recording){
-		var image;
 
+		console.log("Recording a Frame");
+		var image;
 		var recordVideo = video;
 		var width = recordVideo.width;
 		var height = recordVideo.height;
@@ -426,7 +441,7 @@ function recordFrame(){
 
 		imageData = context.getImageData(0, 0, width, height);
 
-		var frameDuration = new Date().getTime - frameTime;
+		var frameDuration = new Date().getTime() - frameTime;
 
 		imageArray.push(
 		{
@@ -438,30 +453,38 @@ function recordFrame(){
 
 		requestAnimationFrame(recordFrame);
 	} else {
-		completeRecording();
+
+		completeRecording(function(){
+			Session.set("isEncoding", false);
+			console.log("completed");
+		});
 	}
 }
 
-function completeRecording(){
+function completeRecording(callback){
+	Session.set("isEncoding", true);
+	console.log("Complete the Recording");	
 
 	var whammyEncoder = new Whammy.Video();
-	for(i in imageArray){
-		context.putImageData(imageArray[i].image, 0, 0);
-		whammyEncoder.add(context, imageArray[i].duration)
+	for(i in imageArray){		
+		context.putImageData(imageArray[i].image, 0, 0);		
+		whammyEncoder.add(context, imageArray[i].duration);
 		delete imageArray[i];
 	}
 
+
+	console.log("Starting the Encoder");
 	var imageBlob = whammyEncoder.compile();
 
-	var myVid = VideoClips.insert(imageBlob, function(err, fileObj){
+	myVid = VideoClips.insert(imageBlob, function(err, fileObj){
 		if(err){
-			console.log("err");
+			console.log(err);
 		} else {
 			console.log(fileObj);
 		}
 	});
 
-	Session.set("editClip", myVid);
+	callback(Session.set("editClip", myVid));
 }
 //Funktion um den Clip später einzusetzen
 

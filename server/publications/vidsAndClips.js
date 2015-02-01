@@ -1,6 +1,6 @@
 Meteor.publish("vidsAndClips", function (vidId) {
 	try{
-		check(vidId, Number);
+		
 		
 	  	return[
 		  	videos.find({_id:vidId}),
