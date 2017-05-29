@@ -83,7 +83,7 @@ Template.loginBar.events({
 				        else{
 				          Session.set("overlayHandler", "none");
 				          Router.go("editProfile");
-				          Console.log("Success! User Created!");
+				          console.log("Success! User Created!");
 				        }
 
 				      });
@@ -102,13 +102,6 @@ Template.loginBar.events({
 
 	    	console.log(validation.email.message);
 	    }
-
-
-
-	     
-	
-
-	    
 	}
 });
 
