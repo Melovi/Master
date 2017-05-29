@@ -3,6 +3,9 @@
   "version": "0.8.1",
   "description": "An Automatic MusicVideo generator App",
   "author": "Alex Junge <sopj87@gmail.com>",
+  "engines": {
+    "node": "6.9.4"
+  },
   "contributors": [
     {
       "name": "Marcel Giehler",
